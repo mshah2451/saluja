@@ -3,16 +3,16 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-buttons slot="secondary">
-      <ion-button fill="solid">
-        <ion-icon slot="start" name="person-circle"></ion-icon>
-        Contact
+      
+      <ion-button  slot="secondary" class="badge-button" routerLink="/notifications/" routerDirection="forward">
+        <ion-icon size="large" name="notifications-circle-outline">
+        </ion-icon>
+        <ion-badge  color="danger"></ion-badge>
       </ion-button>
-    </ion-buttons>
-    <ion-buttons slot="primary">
+    <ion-buttons slot="primary" class="profile">
       <ion-button fill="solid" color="secondary">
         Help
-        <ion-icon slot="end" name="help-circle"></ion-icon>
+        <ion-img src="" slot="end" name="help-circle"></ion-img>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>

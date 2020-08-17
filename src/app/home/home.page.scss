@@ -25,3 +25,78 @@
 #container a {
   text-decoration: none;
 }
+.main-header {
+  min-height: 0;
+  height: 60px;
+}
+
+.main-header {
+  min-height: 0;
+  height: 60px;
+}
+.main-header {
+  z-index: 1030;
+  width: 100%;
+  margin: 0;
+  border: 0;
+  padding: 0;
+  filter: none;
+  background-color: #142448;
+  box-shadow: 0 6px 0 0 rgba(0, 0, 0, .01), 0 15px 32px 0 rgba(0, 0, 0, .06);
+  position: fixed;
+  right: 0px;
+  left: 0px;
+  top: 0px;
+  min-height: 70px;
+}
+.container_header {
+  background: transparent;
+  padding: 13px 15px 0;
+  height: 60px;
+}
+
+.container_header {
+  padding: 10px 15px 0;
+  background: #1c2324;
+}
+.container_header {
+  float: left;
+  width: 100%;
+}
+.logo {
+  width: auto;
+}
+
+.logo {
+  position: absolute;
+  z-index: 9;
+}
+.logo {
+  background: transparent;
+  position: relative;
+}
+.logo {
+  float: none;
+  margin: 0 auto;
+  text-align: center;
+  height: 35px;
+  width: 202px;
+  padding: 0;
+  position: absolute !important;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  background: transparent;
+}
+.logo {
+  float: left;
+  display: block;
+  width: 270px;
+  height: 70px;
+  padding: 10px;
+  line-height: 1.7 !important;
+  background: #2a3142;
+}
+.logo .logo-default {
+  display: inline-block;
+}

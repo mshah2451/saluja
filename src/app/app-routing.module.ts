@@ -11,6 +11,11 @@ const routes: Routes = [
     loadChildren: () => import('./dashboard/dashboard.module').then( m => m.DashboardPageModule),
     canLoad: [AuthGuard]
   },
+  {
+    path: 'homework',
+    loadChildren: () => import('./homework/homework.module').then( m => m.HomeworkPageModule),
+    canLoad: [AuthGuard]
+  },
   
   
 ];
