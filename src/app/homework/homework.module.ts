@@ -5,16 +5,20 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { HomeworkPageRoutingModule } from './homework-routing.module';
-import { HeaderComponent } from '../share/header/header.component';
+// import { HeaderComponent } from '../share/header/header.component';
 import { HomeworkPage } from './homework.page';
+import { ShareableModule } from '../share/shareable/shareable.module';
+import { UploadHomeworkComponent } from './upload-homework/upload-homework.component';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    HomeworkPageRoutingModule
+    HomeworkPageRoutingModule,
+    ShareableModule
   ],
-  declarations: [HomeworkPage,HeaderComponent]
+  declarations: [HomeworkPage,UploadHomeworkComponent],
+  entryComponents: [UploadHomeworkComponent]
 })
 export class HomeworkPageModule {}
