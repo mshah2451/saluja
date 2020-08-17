@@ -1,0 +1,67 @@
+
+.login-content {
+    max-width: 540px;
+    margin: 8vh auto;
+}
+.login-content .logo {
+    text-align: center;
+    margin-bottom: 110px;
+    float: none;
+    background: transparent;
+    text-align: center;
+    width: 100%;
+}
+.loginButton{
+    background-color: #34bfa3 ;
+    color: white;
+}
+
+.plan__cta.btn {
+    -ms-flex-item-align: start;
+    align-self: flex-start;
+    margin-top: auto;
+    -ms-flex-item-align: stretch;
+    align-self: stretch
+}
+
+.plan__cta.btn.light {
+    border-color: #eef6fe;
+    color: #3880ff
+}
+
+.plan__cta.btn.light:hover {
+    box-shadow: 0 2px 4px rgba(0,16,46,.08)
+}
+
+.plan__cta.btn.navy {
+    border-color: #4a679b;
+    color: #d1ebff;
+    background: #324e7e
+}
+
+.plan__cta.btn.navy:hover {
+    box-shadow: 0 2px 4px rgba(0,16,46,.2)
+}
+
+.plan__cta.btn:hover {
+    box-shadow: 0 2px 4px rgba(0,16,46,.12)
+}
+.logo {
+    width: 250px;
+    height: 150px;
+    text-align: center;
+}
+.text-center{
+    margin-left: 35%;
+}
+.text-centerlab{
+    margin-left: 40%;
+}
+@media only screen and (max-width: 455px) {
+    .text-center{
+        margin-left: 11%;
+    }
+    .text-centerlab{
+        margin-left: 22%;
+    }
+  }

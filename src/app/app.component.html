@@ -1,0 +1,77 @@
+<ion-app>
+  <ion-menu side="start">
+    <ion-header>
+      <ion-toolbar>
+      
+          <ion-buttons slot="secondary">
+            <ion-button fill="solid">
+              <ion-icon slot="start" name="person-circle"></ion-icon>
+              Contact
+            </ion-button>
+          </ion-buttons>
+          <ion-title>Solid Buttons</ion-title>
+          <ion-buttons slot="primary">
+            <ion-button fill="solid" color="secondary">
+              Help
+              <ion-icon slot="end" name="help-circle"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+       
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content>
+      <ion-list>
+        <ion-menu-toggle>
+          <ion-item lines="none" routerLink="/dashboard">
+            <ion-icon name="business" slot="start"></ion-icon>
+            <ion-label>Dashboard</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle>
+          <ion-item lines="none" routerLink="/homework">
+            <ion-icon name="book-outline" slot="start"></ion-icon>
+            <ion-label>HomeWork</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle>
+          <ion-item lines="none" routerLink="/attendace">
+            <ion-icon name="calendar-outline" slot="start"></ion-icon>
+            <ion-label>Attendance</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle>
+          <ion-item lines="none" routerLink="/homework">
+            <ion-icon name="stats-chart-outline" slot="start"></ion-icon>
+            <ion-label>Report Card</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle>
+          <ion-item lines="none" routerLink="/homework">
+            <ion-icon name="notifications-outline" slot="start"></ion-icon>
+            <ion-label>Notice</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle>
+          <ion-item lines="none" routerLink="/homework">
+            <ion-icon name="help-outline" slot="start"></ion-icon>          
+              <ion-label>Queries</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle>
+          <ion-item lines="none" routerLink="/homework">
+            <ion-icon name="person-circle-outline" slot="start"></ion-icon>          
+              <ion-label>My Profile</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle>
+          <ion-item lines="none" (click)="onLogout()" button>
+            <ion-icon name="exit" slot="start"></ion-icon>
+            <ion-label>Logout</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+  <ion-router-outlet main></ion-router-outlet>
+</ion-app>
