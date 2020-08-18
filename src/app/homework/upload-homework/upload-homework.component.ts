@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
-
+import {FileTransfer,FileUploadOptions,FileTransferObject} from '@ionic-native/file-transfer/ngx'
+import {FileChooser} from '@ionic-native/file-chooser/ngx';
+import {FilePath} from '@ionic-native/file-path/ngx';
+import { File } from '@ionic-native/file/ngx';
+import { JsonPipe } from '@angular/common';
+import { BaseURL } from 'src/app/share/Utility/baseURL';
 // function base64toBlob(base64Data, contentType) {
 //   contentType = contentType || '';
 //   const sliceSize = 1024;
@@ -31,50 +36,79 @@ import { ModalController } from '@ionic/angular';
 
 export class UploadHomeworkComponent implements OnInit {
 image:any;
-  constructor(private modalCtrl: ModalController) { }
+fileTransfer:FileTransferObject; 
+  constructor
+  (private modalCtrl: ModalController,
+  private transfer:FileTransfer,
+  private file:File,
+  private filepath:FilePath,
+  private filechooser:FileChooser
+  ) { }
   form: FormGroup;
   ngOnInit() {
-    
-
-
   }
   
   onLocationPicked() {
   }
 
-  onBookPlace() {
-    if (!this.form.valid ) {
-      return;
-    }
-
-    this.modalCtrl.dismiss(
-      {
-        bookingData: {
-          firstName: this.form.value['remark'],
-          lastName: this.form.value['file'],
-        
-        }
-      },
-      'confirm'
-    );
-  } 
-  upload(str:any)
-  {
-    const formData = new FormData();
-
-    this.image=str.target.files[0];
-
-    formData.append('files[]', this.image);
-    console.log(formData,this.image);
-    // this.http.post("http://localhost/test/test.php",formData)
-    // .subscribe((data:any)=>{
-    //   console.log(data);
-    // })
-    console.log(str);
-  }
   onCancel() {
     this.modalCtrl.dismiss(null, 'cancel');
   }
+ 
+  uploadFile(){
+  this.filechooser.open()
+  .then((uri)=>{
+      this.filepath.resolveNativePath(uri).then((nativePath)=>{
+        this.fileTransfer=this.transfer.create();
+        this.fileTransfer.upload(nativePath,`${BaseURL.baseURLAPI}UploadFile`)
+        .then((data)=>{
+           alert(JSON.stringify('transfer done= '+ data))
+        },(err)=>{
+          alert('Error aa gyi= '+JSON.stringify(err))
+        })
+      },
+      (err)=>{
+        alert(JSON.stringify(err));
+      })
+  },(err)=>{
+    alert(JSON.stringify(err));
+  })
+
+  }
+
+  // onBookPlace() {
+  //   if (!this.form.valid ) {
+  //     return;
+  //   }
+
+  //   this.modalCtrl.dismiss(
+  //     {
+  //       bookingData: {
+  //         firstName: this.form.value['remark'],
+  //         lastName: this.form.value['file'],
+        
+  //       }
+  //     },
+  //     'confirm'
+  //   );
+  // } 
+  // upload(str:any)
+  // {
+  //   const formData = new FormData();
+
+  //   this.image=str.target.files[0];
+
+  //   formData.append('files[]', this.image);
+  //   console.log(formData,this.image);
+  //   // this.http.post("http://localhost/test/test.php",formData)
+  //   // .subscribe((data:any)=>{
+  //   //   console.log(data);
+  //   // })
+  //   console.log(str);
+  // }
+  // onCancel() {
+  //   this.modalCtrl.dismiss(null, 'cancel');
+  // }
   // onImagePicked(imageData: string | File) {
   //   let imageFile;
   //   if (typeof imageData === 'string') {
@@ -92,5 +126,7 @@ image:any;
   //   }
   //   this.form.patchValue({ image: imageFile });
   // }
+
+  
 
 }

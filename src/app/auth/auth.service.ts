@@ -6,6 +6,7 @@ import { Plugins } from '@capacitor/core';
 
 import { environment } from '../../environments/environment';
 import { User } from './user.model';
+import {BaseURL} from '../share/Utility/baseURL'
 
 export interface AuthResponseData {
   kind: string;
@@ -102,7 +103,7 @@ export class AuthService implements OnDestroy {
   signup(UserId: string, password: string) {
     return this.http
       .post<AuthResponseData>(
-        `http://app.salujagoldschool.com/login`,
+        `${BaseURL.baseURLAPI}login`,
         { UserId: UserId, password: password, returnSecureToken: true }
       )
       .pipe(tap(this.setUserData.bind(this)));
@@ -111,7 +112,7 @@ export class AuthService implements OnDestroy {
   login(UserId: string, password: string) {
     return this.http
       .post<AuthResponseData>(
-        `http://app.salujagoldschool.com/login`,
+        `${BaseURL.baseURLAPI}login`,
         { UserId: UserId, password: password, returnSecureToken: true }
       )
       .pipe(tap(this.setUserData.bind(this)));

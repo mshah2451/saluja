@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 
 import { AuthService, AuthResponseData } from './auth.service';
 
+
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.page.html',
@@ -69,9 +70,8 @@ export class AuthPage implements OnInit {
     // if (!form.valid) {
     //   return;
     // }
-    const email = form.value.email;
-    const password = form.value.password;
-
+    const email = "6005177895";//form.value.email;
+    const password = "password1";//form.value.password;
     this.authenticate(email, password);
     form.reset();
   }

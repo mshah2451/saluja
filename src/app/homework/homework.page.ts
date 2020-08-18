@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { UploadHomeworkComponent } from './upload-homework/upload-homework.component';
 import { ModalController, LoadingController, ActionSheetController } from '@ionic/angular';
-import { Homework } from './Homework';
+import { Homework ,HomeworkDetails } from './Homework';
+import {HomeworkService} from './homework-service'
+import { HomeworkDetailComponent } from './homework-detail/homework-detail.component';
 
 @Component({
   selector: 'app-homework',
@@ -10,43 +12,56 @@ import { Homework } from './Homework';
 })
 export class HomeworkPage implements OnInit {
 homework:Homework;
-  constructor(  private modalCtrl: ModalController,    
+homeworkDetails:HomeworkDetails[];
+homeworkDetail:HomeworkDetails;
+  constructor(private modalCtrl: ModalController,    
     private loadingCtrl: LoadingController,
-    private actionSheetCtrl: ActionSheetController) { }
+    private actionSheetCtrl: ActionSheetController,
+    private homeworkService:HomeworkService) { }
 
   ngOnInit() {
-  }
-  onBookPlace() {
-    // this.router.navigateByUrl('/places/tabs/discover');
-    // this.navCtrl.navigateBack('/places/tabs/discover');
-    // this.navCtrl.pop();
-    this.actionSheetCtrl
-      .create({
-        header: 'Choose an Action',
-        buttons: [
-          {
-            text: 'Select Date',
-            handler: () => {
-              this.openBookingModal('select');
-            }
-          },
-          {
-            text: 'Random Date',
-            handler: () => {
-              this.openBookingModal('random');
-            }
-          },
-          {
-            text: 'Cancel',
-            role: 'cancel'
-          }
-        ]
+    this.homeworkDetails=[];
+    // AssId : string;
+    // Subject: string;
+    // AssignedBy:string;
+    // Date:string;
+    // LastUploadDate:string;
+    // Status:string;
+    // DownloadFileURL:string;
+    this.homeworkService.getHomeWorkById().subscribe(map=>      
+      map.forEach(element => {
+        this.homeworkDetails.push
+        (
+          {AssId:element.AssId,
+          AssignedBy:element.AssignedBy,
+          Date:element.Date,
+          DownloadFileURL:element.DownloadFileURL,
+          LastUploadDate:element.LastUploadDate,
+          Status:element.Status,
+          Subject:element.Subject
+         }
+         )
       })
-      .then(actionSheetEl => {
-        actionSheetEl.present();
-      });
+    );
+    console.log(this.homeworkDetails);
   }
 
+ 
+  
+  onBookPlace() {
+    this.openBookingModal('select');
+  }
+
+  onViewHomework(id : string) {
+   this.homeworkDetails.map(x=>{
+    if(x.AssId===id)
+    {
+      this.homeworkDetail=x;     
+    }
+   });
+   this.openViewModal();
+  }
+  
   openBookingModal(mode: 'select' | 'random') {
     console.log(mode);
     this.modalCtrl
@@ -64,23 +79,30 @@ homework:Homework;
             .create({ message: 'Booking place...' })
             .then(loadingEl => {
               loadingEl.present();
-              const data = resultData.data.bookingData;
-              // this.bookingService
-              //   .addBooking(
-              //     this.place.id,
-              //     this.place.title,
-              //     this.place.imageUrl,
-              //     data.firstName,
-              //     data.lastName,
-              //     data.guestNumber,
-              //     data.startDate,
-              //     data.endDate
-              //   )
-              //   .subscribe(() => {
-              //     loadingEl.dismiss();
-              //   });
             });
         }
       });
   }
+
+  openViewModal() {    
+    this.modalCtrl
+      .create({
+        component: HomeworkDetailComponent,
+       componentProps: { homework: this.homeworkDetail}
+      })
+      .then(modalEl => {
+        modalEl.present();
+        return modalEl.onDidDismiss();
+      })
+      .then(resultData => {
+        if (resultData.role === 'confirm') {
+          this.loadingCtrl
+            .create({ message: 'Booking place...' })
+            .then(loadingEl => {
+              loadingEl.present();
+            });
+        }
+      });
+  }
+
 }

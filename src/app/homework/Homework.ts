@@ -1,4 +1,3 @@
-
 export class Homework {
     constructor(
   
@@ -8,4 +7,15 @@ export class Homework {
      
     ) {}
   }
+
+  
+export interface HomeworkDetails {
+  AssId : string;
+  Subject: string;
+  AssignedBy:string;
+  Date:string;
+  LastUploadDate:string;
+  Status:string;
+  DownloadFileURL:string;
+}
   

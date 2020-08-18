@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { HomeworkDetails } from '../Homework';
 
 @Component({
   selector: 'app-homework-detail',
@@ -6,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./homework-detail.component.scss'],
 })
 export class HomeworkDetailComponent implements OnInit {
+  @Input() homework : HomeworkDetails;
+  
+  constructor(private modalCtrl: ModalController) {}
 
-  constructor() { }
+  ngOnInit() {
+    
+  }
 
-  ngOnInit() {}
+  onCancel() {
+    this.modalCtrl.dismiss(null, 'cancel');
+  }
 
 }

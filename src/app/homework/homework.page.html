@@ -8,42 +8,42 @@
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col size-md="3" offset-md="3" class="ion-text-center">
+      <!-- <ion-col size-md="3" offset-md="3" class="ion-text-center">
         <ion-item>
           <h6>Id</h6>
         </ion-item>
-      </ion-col>
-      <ion-col size-md="3" class="ion-text-center">
+      </ion-col> -->
+      <ion-col size-md="5" class="ion-text-center">
         <ion-item>
           <h6>Subject</h6>
         </ion-item>
       </ion-col>
-      <ion-col size-md="3" class="ion-text-center">
+      <ion-col size-md="7" class="ion-text-center">
         <ion-item>
           <h6>View</h6>
         </ion-item>
       </ion-col>
     </ion-row>
-    <ion-row>
-      <ion-col size-md="3" offset-md="3" class="ion-text-center">
+    <ion-row *ngFor="let homework of homeworkDetails">
+      <!-- <ion-col size-md="3" offset-md="3" class="ion-text-center">
         <ion-item>
-          <h6>1235455</h6>
+          <h6>{{homework.AssId}}</h6>
+        </ion-item>
+      </ion-col> -->
+      <ion-col size-md="5" class="ion-text-center">
+        <ion-item>
+          <h6>{{homework.Subject}}</h6>
         </ion-item>
       </ion-col>
-      <ion-col size-md="3" class="ion-text-center">
-        <ion-item>
-          <h6>Math</h6>
-        </ion-item>
-      </ion-col>
-      <ion-col size-md="3" class="ion-text-center">
+      <ion-col size-md="7" class="ion-text-center">
         <ion-item>
           <ion-button color="primary" margin (click)="onBookPlace()"
-          >Book</ion-button
-        >
+          >Upload</ion-button>
+          <ion-button color="primary" margin (click)="onViewHomework(homework.AssId)"
+          >View</ion-button>
         </ion-item>
       </ion-col>
     </ion-row>
-
   </ion-grid>
   
 </ion-content>
