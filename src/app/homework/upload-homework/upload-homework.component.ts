@@ -8,6 +8,9 @@ import { File } from '@ionic-native/file/ngx';
 import { JsonPipe } from '@angular/common';
 import { BaseURL } from 'src/app/share/Utility/baseURL';
 import { AuthService } from 'src/app/auth/auth.service';
+
+
+
 @Component({
   selector: 'app-upload-homework',
   templateUrl: './upload-homework.component.html',
@@ -72,60 +75,36 @@ fileTransfer:FileTransferObject;
 
           response
               .then(function(success) {
-                  //upload success message                       
+                alert(JSON.stringify(success));                   
               })
               .catch(function(error) {
-                  //upload error message
+                alert(JSON.stringify(error));          
               });
       })
       .catch(error => {
+        alert(JSON.stringify(error));        
           //something wrong with getting file infomation
       });
 }
 uploadFile(fileMeta) {
   let token='';
+  
+  alert(JSON.stringify(fileMeta));        
 this.authService.token.subscribe(val=>token=val);
   const options: FileUploadOptions = {
     fileKey: 'file',
     fileName: fileMeta.fileNameFromPath,
     headers: {
-      'Content-Length': fileMeta.size,
-      'Content-Type': fileMeta.type,
       "Authorization":"Bearer "+`${token}`
     },
     httpMethod: 'post',
     mimeType: fileMeta.type,
+    chunkedMode:false
   };
-
+  alert(JSON.stringify(fileMeta.nativeURL));  
   const fileTransfer: FileTransferObject = this.transfer.create();
   return fileTransfer.upload(fileMeta.nativeURL, `${BaseURL.baseURLAPI}UploadFile`, options);
 }
-  // uploadFile(){
-  //   let token='';
-  //   this.authService.token.subscribe(val=>token=val);
-  //   let options: FileUploadOptions = {
-  //     headers: {"Authorization":"Bearer "+`${token}`}
-  //  }
-  // this.filechooser.open()
-  // .then((uri)=>{
-  //     this.filepath.resolveNativePath(uri).then((nativePath)=>{
-  //       this.fileTransfer=this.transfer.create();
-  //       this.fileTransfer.upload(nativePath,`${BaseURL.baseURLAPI}UploadFile`,options)
-  //       .then((data)=>{
-  //          alert(JSON.stringify('transfer done= '+ data))
-  //       },(err)=>{
-  //         alert('Error aa gyi= '+JSON.stringify(err))
-  //       })
-  //     },
-  //     (err)=>{
-  //       alert(JSON.stringify(err));
-  //     })
-  // },(err)=>{
-  //   alert(JSON.stringify(err));
-  // })
-
-  // }
-
   
 
 }
