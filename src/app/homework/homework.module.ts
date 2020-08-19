@@ -9,6 +9,7 @@ import { HomeworkPageRoutingModule } from './homework-routing.module';
 import { HomeworkPage } from './homework.page';
 import { ShareableModule } from '../share/shareable/shareable.module';
 import { UploadHomeworkComponent } from './upload-homework/upload-homework.component';
+import { HomeworkDetailComponent } from './homework-detail/homework-detail.component';
 
 @NgModule({
   imports: [
@@ -18,7 +19,7 @@ import { UploadHomeworkComponent } from './upload-homework/upload-homework.compo
     HomeworkPageRoutingModule,
     ShareableModule
   ],
-  declarations: [HomeworkPage,UploadHomeworkComponent],
-  entryComponents: [UploadHomeworkComponent]
+  declarations: [HomeworkPage,UploadHomeworkComponent,HomeworkDetailComponent],
+  entryComponents: [UploadHomeworkComponent,HomeworkDetailComponent]
 })
 export class HomeworkPageModule {}

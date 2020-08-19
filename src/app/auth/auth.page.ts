@@ -70,8 +70,8 @@ export class AuthPage implements OnInit {
     // if (!form.valid) {
     //   return;
     // }
-    const email = "6005177895";//form.value.email;
-    const password = "password1";//form.value.password;
+    const email = form.value.email;
+    const password = form.value.password;
     this.authenticate(email, password);
     form.reset();
   }

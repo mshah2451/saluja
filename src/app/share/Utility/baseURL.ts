@@ -1,4 +1,4 @@
 export class  BaseURL
 {
-static baseURLAPI= `http://app.salujagoldschool.com/`;
+static baseURLAPI= `https://app.salujagoldschool.com/`;
 }
