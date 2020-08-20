@@ -5,9 +5,10 @@
   <ion-grid>
     <ion-row>
       <ion-col  text-center>
+
         <div>
           <p style="margin-bottom: 5px; text-align: center;">WELCOME</p>
-          <h1>Rishabh Singh <span>2nd - A</span></h1>
+          <h1>{{studentDetail?.Name}} {{studentDetail?.LastName}} <span>{{studentDetail?.ClassName}} - {{studentDetail?.SectionName}}</span></h1>
         </div>
       </ion-col>
     </ion-row>
@@ -112,8 +113,7 @@
             </ion-col>
             <ion-col size="9" text-center>
               <div class="ion-text-center">
-                <h6 class="m-0">
-                   
+                <h6 class="m-0">                   
                   <ion-label>Queries</ion-label>
                 </h6>
               </div>
@@ -121,7 +121,9 @@
           </ion-row>
         </div>
       </ion-col>
-
+ <div class="ion-text-center">
+    <ion-spinner *ngIf="isLoading"></ion-spinner>
+  </div> 
     </ion-row>
-  </ion-grid>
+  </ion-grid>  
 </ion-content>
