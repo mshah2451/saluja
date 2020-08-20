@@ -49,7 +49,7 @@ homeworkDetail:HomeworkDetails;
  
   
   onBookPlace() {
-    this.openBookingModal('select');
+    this.openHomeworkModal('select');
   }
 
   onViewHomework(id : string) {
@@ -62,7 +62,7 @@ homeworkDetail:HomeworkDetails;
    this.openViewModal();
   }
   
-  openBookingModal(mode: 'select' | 'random') {
+  openHomeworkModal(mode: 'select' | 'random') {
     console.log(mode);
     this.modalCtrl
       .create({
@@ -76,7 +76,7 @@ homeworkDetail:HomeworkDetails;
       .then(resultData => {
         if (resultData.role === 'confirm') {
           this.loadingCtrl
-            .create({ message: 'Booking place...' })
+            .create({ message: 'Homework Upload..' })
             .then(loadingEl => {
               loadingEl.present();
             });
@@ -97,7 +97,7 @@ homeworkDetail:HomeworkDetails;
       .then(resultData => {
         if (resultData.role === 'confirm') {
           this.loadingCtrl
-            .create({ message: 'Booking place...' })
+            .create({ message: 'Homework Upload...' })
             .then(loadingEl => {
               loadingEl.present();
             });

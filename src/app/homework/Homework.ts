@@ -19,3 +19,18 @@ export interface HomeworkDetails {
   DownloadFileURL:string;
 }
   
+  
+export interface HomeworkUploadDetails {
+  enrollmentCode: string,
+  classid: number,
+  sectionId: number,
+  subjectId: number,
+  uploadedby: number,
+  deadlineDate: string,
+  uploadeOn: string,
+  filepath: string,
+  FileName: string,
+  AssId: string,
+  Remark:string
+}
+  

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ModalController } from '@ionic/angular';
+import { ModalController, AlertController } from '@ionic/angular';
 import {FileTransfer,FileUploadOptions,FileTransferObject} from '@ionic-native/file-transfer/ngx'
 import {FileChooser} from '@ionic-native/file-chooser/ngx';
 import {FilePath} from '@ionic-native/file-path/ngx';
@@ -8,6 +8,7 @@ import { File } from '@ionic-native/file/ngx';
 import { JsonPipe } from '@angular/common';
 import { BaseURL } from 'src/app/share/Utility/baseURL';
 import { AuthService } from 'src/app/auth/auth.service';
+import { HomeworkService } from '../homework-service';
 
 
 
@@ -27,7 +28,9 @@ fileTransfer:FileTransferObject;
   private file:File,
   private filepath:FilePath,
   private filechooser:FileChooser,
-  private authService:AuthService
+  private authService:AuthService,
+  public alertCtrl: AlertController,
+  public homeservice:HomeworkService
   ) { }
   form: FormGroup;
   ngOnInit() {
@@ -75,7 +78,8 @@ fileTransfer:FileTransferObject;
 
           response
               .then(function(success) {
-                alert(JSON.stringify(success));                   
+                alert(JSON.stringify(success.response));  
+             //   this.homeservice.UploadHomeworkDetail()                 
               })
               .catch(function(error) {
                 alert(JSON.stringify(error));          
@@ -86,10 +90,10 @@ fileTransfer:FileTransferObject;
           //something wrong with getting file infomation
       });
 }
-uploadFile(fileMeta) {
+async uploadFile(fileMeta) {
   let token='';
   
-  alert(JSON.stringify(fileMeta));        
+        
 this.authService.token.subscribe(val=>token=val);
   const options: FileUploadOptions = {
     fileKey: 'file',
@@ -101,9 +105,24 @@ this.authService.token.subscribe(val=>token=val);
     mimeType: fileMeta.type,
     chunkedMode:false
   };
-  alert(JSON.stringify(fileMeta.nativeURL));  
-  const fileTransfer: FileTransferObject = this.transfer.create();
-  return fileTransfer.upload(fileMeta.nativeURL, `${BaseURL.baseURLAPI}UploadFile`, options);
+  const alert = await this.alertCtrl.create({  
+    header: 'Do you want to submit?',  
+    message: 'Once the assignment submit,you can not be Submit again!!',  
+    buttons: [ { 
+      text: 'Submit',  
+      handler: data => {  
+        const fileTransfer: FileTransferObject = this.transfer.create();
+        return fileTransfer.upload(fileMeta.nativeURL, `${BaseURL.baseURLAPI}UploadFile`, options);
+      }  
+    }, {
+      text: 'Cancel',  
+      handler: data => {  
+       return
+      }  
+    } ]  
+  }); 
+  await alert.present();  
+  
 }
   
 

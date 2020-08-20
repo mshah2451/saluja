@@ -6,6 +6,7 @@ import { Plugins } from '@capacitor/core';
 import { Observable } from "rxjs/Observable";
 import { AuthService } from '../auth/auth.service';
 import { BaseURL } from '../share/Utility/baseURL';
+import { HomeworkUploadDetails } from './Homework';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,14 @@ export class HomeworkService implements OnDestroy {
     );
   }
 
+  UploadHomeworkDetail(homeworkUploadDetails:HomeworkUploadDetails): Observable<any> {
+    //const userId = this.authService.userId;
+    const userId='6005177895';
+    const url = `${BaseURL.baseURLAPI}ViewAssignmentbyStudent?UserId=${userId}`;
+    return this.http.get<any>(url).pipe(
+    
+    );
+  }
   ngOnDestroy() {
    
   }
