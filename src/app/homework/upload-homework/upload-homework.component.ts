@@ -78,7 +78,7 @@ fileTransfer:FileTransferObject;
 
           response
               .then(function(success) {
-                alert(JSON.stringify(success.response));  
+                alert(JSON.stringify(success));  
              //   this.homeservice.UploadHomeworkDetail()                 
               })
               .catch(function(error) {
