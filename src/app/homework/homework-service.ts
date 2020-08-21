@@ -25,13 +25,33 @@ export class HomeworkService implements OnDestroy {
     );
   }
 
+  
   UploadHomeworkDetail(homeworkUploadDetails:HomeworkUploadDetails): Observable<any> {
     //const userId = this.authService.userId;
     const userId='6005177895';
     const url = `${BaseURL.baseURLAPI}StudentUploadHW`;
-    return this.http.post<any>(url,homeworkUploadDetails);
-  }
+    // this.http.post<any>(url,JSON.stringify(homeworkUploadDetails));
 
+    
+     return this.http
+     .post<any>(
+       `${BaseURL.baseURLAPI}StudentUploadHW`,
+       {  enrollmentCode:homeworkUploadDetails.enrollmentCode,
+        classid: homeworkUploadDetails.classid,
+       sectionId:homeworkUploadDetails.sectionId,
+       subjectId: homeworkUploadDetails.subjectId,
+       uploadedby: homeworkUploadDetails.uploadedby,
+       deadlineDate: null,
+       uploadeOn: null,
+       filepath: homeworkUploadDetails.filepath,
+       FileName: homeworkUploadDetails.FileName,
+       AssId: homeworkUploadDetails.AssId,
+       Remark:homeworkUploadDetails.Remark 
+         }
+     )
+  .pipe();
+  }
+  
   ngOnDestroy() {
    
   }
@@ -48,3 +68,13 @@ export class HomeworkService implements OnDestroy {
 
   
 }
+/*classid: "homeworkUploadDetails.classid",
+       sectionId:homeworkUploadDetails.sectionId,
+       subjectId: homeworkUploadDetails.subjectId,
+       uploadedby: homeworkUploadDetails.uploadedby,
+       deadlineDate: homeworkUploadDetails.deadlineDate,
+       uploadeOn: homeworkUploadDetails.uploadeOn,
+       filepath: homeworkUploadDetails.filepath,
+       FileName: homeworkUploadDetails.FileName,
+       AssId: homeworkUploadDetails.AssId,
+       Remark:homeworkUploadDetails.Remark */

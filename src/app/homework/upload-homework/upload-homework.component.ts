@@ -11,6 +11,8 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { HomeworkService } from '../homework-service';
 import { async } from '@angular/core/testing';
 import { HomeworkUploadDetails } from '../Homework';
+import { DashboardService } from 'src/app/dashboard/dashboard.service';
+import { studentDetails } from 'src/app/model/studentDetails';
 
 
 
@@ -32,7 +34,8 @@ fileTransfer:FileTransferObject;
   private filechooser:FileChooser,
   private authService:AuthService,
   public alertCtrl: AlertController,
-  public homeservice:HomeworkService
+  public homeservice:HomeworkService,
+  private dashboarService:DashboardService
   ) { }
   form: FormGroup;
   ngOnInit() {
@@ -73,19 +76,26 @@ fileTransfer:FileTransferObject;
           //get the upload 
         //  const uploadUrl = await this.getUploadUrl(fileMeta);
 
-          const response: Promise < any > = this.uploadFile(
+          const response = await this.uploadFile(
               fileMeta
-              
           );
 
-          response
-              .then(function(success) {
-                alert(JSON.stringify(success));  
-             //   this.homeservice.UploadHomeworkDetail()                 
-              })
-              .catch(function(error) {
-                alert(JSON.stringify(error));          
-              });
+          // var dataaaaa=  await   this.homeservice.UploadHomeworkDetail(new HomeworkUploadDetails("12252",
+          // 3,2,4,4,"","","localhost test","","123","")).subscribe(x)
+          // this.dashboardService.getStudentDetails().subscribe(studentDetail=>{
+          //   this.studentDetail=studentDetail;
+          //   this.isLoading=false;
+          // });
+          // response
+          //     .then(function(success) {
+          //       alert(JSON.stringify(success)); 
+          //       console.log(success); 
+          //    //   this.homeservice.UploadHomeworkDetail()                 
+          //     })
+          //     .catch(function(error) {
+          //       alert(JSON.stringify(error));
+          //       console.log(error);          
+          //     });
       })
       .catch(error => {
         alert(JSON.stringify(error));        
@@ -94,6 +104,10 @@ fileTransfer:FileTransferObject;
 }
 async uploadFile(fileMeta) {
   const homeworkService=this.homeservice;
+  let studentProfile:studentDetails;
+  this.dashboarService.studentProfile.subscribe(x=>{
+    studentProfile =x;
+  });
   let token='';
   this.authService.token.subscribe(val=>token=val);
   const options: FileUploadOptions = {
@@ -114,12 +128,21 @@ async uploadFile(fileMeta) {
       handler:async data => {  
         const fileTransfer: FileTransferObject = this.transfer.create();
         const fileUploadResult = await fileTransfer.upload(fileMeta.nativeURL, `${BaseURL.baseURLAPI}UploadFile`, options);
-alert(JSON.stringify(fileUploadResult));
-       var dataaaaa=  await   homeworkService.UploadHomeworkDetail(new HomeworkUploadDetails("12252",
-        3,2,4,4,"","",fileUploadResult.response[0],"","123",""));
+try{
+        alert(JSON.stringify(fileUploadResult));
+        homeworkService.UploadHomeworkDetail(new HomeworkUploadDetails(studentProfile.AdmissionId,studentProfile.ClassId,studentProfile.SectionId
+          ,4,4,"",null,JSON.parse(fileUploadResult.response)[0],"","",""
 
-        alert(JSON.stringify(dataaaaa));
-      }  
+          )).subscribe(x=>{
+          console.log(JSON.stringify(x))
+          alert(JSON.stringify(x));
+        })
+     
+}catch(err){
+  console.log(JSON.stringify(err))
+}
+      } 
+    
     }, {
       text: 'Cancel',  
       handler: data => {  
