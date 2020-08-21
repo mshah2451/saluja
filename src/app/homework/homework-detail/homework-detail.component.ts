@@ -4,6 +4,7 @@ import { HomeworkDetails } from '../Homework';
 import {HomeworkService} from '../homework-service';
 import {FileTransfer, FileTransferObject} from '@ionic-native/file-transfer/ngx'
 import { File } from '@ionic-native/file/ngx';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-homework-detail',
@@ -16,7 +17,8 @@ export class HomeworkDetailComponent implements OnInit {
   constructor(private modalCtrl: ModalController,
     private homeworkService:HomeworkService,
     private transfer: FileTransfer, 
-    private file: File) 
+    private file: File,
+    private authService:AuthService,) 
   {}
 
   ngOnInit() {
@@ -28,12 +30,20 @@ export class HomeworkDetailComponent implements OnInit {
 
   public download() {  
     const fileName="myfile";
+    let token='';
+    this.authService.token.subscribe(val=>token=val);
+    const options: FileUploadOptions = {
+      fileKey: 'file',
+      headers: {
+        "Authorization":"Bearer "+`${token}`
+      }
+    };
       //here encoding path as encodeURI() format.  
       let url = encodeURI(`https://app.salujagoldschool.com/UploadHomework/9932d775-eb22-43da-8bb9-66f48ba41714.jpg`);  
       //here initializing object.  
       this.fileTransfer = this.transfer.create();  
       // here iam mentioned this line this.file.externalRootDirectory is a native pre-defined file path storage. You can change a file path whatever pre-defined method.  
-      this.fileTransfer.download(url, this.file.externalRootDirectory + fileName, true).then((entry) => {  
+      this.fileTransfer.download(url, this.file.externalRootDirectory + fileName, true,options).then((entry) => {  
           //here logging our success downloaded file path in mobile.  
           console.log('download completed: ' + entry.toURL());  
       }, (error) => {  
