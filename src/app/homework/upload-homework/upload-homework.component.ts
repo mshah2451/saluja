@@ -9,6 +9,8 @@ import { JsonPipe } from '@angular/common';
 import { BaseURL } from 'src/app/share/Utility/baseURL';
 import { AuthService } from 'src/app/auth/auth.service';
 import { HomeworkService } from '../homework-service';
+import { async } from '@angular/core/testing';
+import { HomeworkUploadDetails } from '../Homework';
 
 
 
@@ -91,10 +93,9 @@ fileTransfer:FileTransferObject;
       });
 }
 async uploadFile(fileMeta) {
+  const homeworkService=this.homeservice;
   let token='';
-  
-        
-this.authService.token.subscribe(val=>token=val);
+  this.authService.token.subscribe(val=>token=val);
   const options: FileUploadOptions = {
     fileKey: 'file',
     fileName: fileMeta.fileNameFromPath,
@@ -105,14 +106,19 @@ this.authService.token.subscribe(val=>token=val);
     mimeType: fileMeta.type,
     chunkedMode:false
   };
-  const alert = await this.alertCtrl.create({  
+  const alertTest = await this.alertCtrl.create({  
     header: 'Do you want to submit?',  
     message: 'Once the assignment submit,you can not be Submit again!!',  
     buttons: [ { 
       text: 'Submit',  
-      handler: data => {  
+      handler:async data => {  
         const fileTransfer: FileTransferObject = this.transfer.create();
-        return fileTransfer.upload(fileMeta.nativeURL, `${BaseURL.baseURLAPI}UploadFile`, options);
+        const fileUploadResult = await fileTransfer.upload(fileMeta.nativeURL, `${BaseURL.baseURLAPI}UploadFile`, options);
+alert(JSON.stringify(fileUploadResult));
+       var dataaaaa=  await   homeworkService.UploadHomeworkDetail(new HomeworkUploadDetails("12252",
+        3,2,4,4,"","",fileUploadResult.response[0],"","123",""));
+
+        alert(JSON.stringify(dataaaaa));
       }  
     }, {
       text: 'Cancel',  
@@ -121,9 +127,8 @@ this.authService.token.subscribe(val=>token=val);
       }  
     } ]  
   }); 
-  await alert.present();  
-  
+  await alertTest.present();  
 }
-  
+
 
 }
