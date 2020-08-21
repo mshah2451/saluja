@@ -28,11 +28,10 @@ export class HomeworkService implements OnDestroy {
   UploadHomeworkDetail(homeworkUploadDetails:HomeworkUploadDetails): Observable<any> {
     //const userId = this.authService.userId;
     const userId='6005177895';
-    const url = `${BaseURL.baseURLAPI}ViewAssignmentbyStudent?UserId=${userId}`;
-    return this.http.get<any>(url).pipe(
-    
-    );
+    const url = `${BaseURL.baseURLAPI}StudentUploadHW`;
+    return this.http.post<any>(url,homeworkUploadDetails);
   }
+
   ngOnDestroy() {
    
   }
