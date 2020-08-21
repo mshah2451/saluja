@@ -17,20 +17,23 @@ export interface HomeworkDetails {
   LastUploadDate:string;
   Status:string;
   DownloadFileURL:string;
+  SubjectId:number;
 }
   
   
 export class HomeworkUploadDetails {
- constructor(public EnrollmentCode: string,
- public Classid: number,
- public  SectionId: number,
- public SubjectId: number,
- public Uploadedby: number,
- public DeadlineDate: string,
- public UploadeOn: string,
- public Filepath: string,
- public FileName: string,
- public  AssId: string,
- public  Remark:string){}
+  constructor(
+  public enrollmentCode: string,
+  public classid: number,
+  public sectionId: number,
+  public subjectId: number,
+  public uploadedby: number,
+  public deadlineDate: string,
+  public uploadeOn: string,
+  public filepath: string,
+  public FileName: string,
+  public AssId: string,
+  public Remark:string
+  ){}
 }
   
