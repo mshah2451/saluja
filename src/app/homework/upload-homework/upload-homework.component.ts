@@ -24,6 +24,7 @@ export class UploadHomeworkComponent implements OnInit {
   option: FileUploadOptions;
 image:any;
 fileTransfer:FileTransferObject; 
+remark:string="";
 @Input() homework : HomeworkDetails;
   constructor
   (private modalCtrl: ModalController,
@@ -115,7 +116,7 @@ async uploadFile(fileMeta) {
 try{
         alert(JSON.stringify(fileUploadResult));
         homeworkService.UploadHomeworkDetail(new HomeworkUploadDetails(studentProfile.AdmissionId,studentProfile.ClassId,studentProfile.SectionId
-          ,4,4,"",null,JSON.parse(fileUploadResult.response)[0],"","",""
+          ,this.homework.SubjectId,4,null,null,JSON.parse(fileUploadResult.response)[0],"file",this.homework.AssId,this.remark
 
           )).subscribe(x=>{
           console.log(JSON.stringify(x))
