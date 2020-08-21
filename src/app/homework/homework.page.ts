@@ -32,13 +32,15 @@ homeworkDetail:HomeworkDetails;
       map.forEach(element => {
         this.homeworkDetails.push
         (
-          {AssId:element.AssId,
+          {
+          AssId:element.AssId,
           AssignedBy:element.AssignedBy,
           Date:element.Date,
           DownloadFileURL:element.DownloadFileURL,
           LastUploadDate:element.LastUploadDate,
           Status:element.Status,
-          Subject:element.Subject
+          Subject:element.Subject,
+          SubjectId:element.SubjectId
          }
          )
       })
@@ -48,7 +50,14 @@ homeworkDetail:HomeworkDetails;
 
  
   
-  onBookPlace() {
+  onBookPlace(id : string) {
+    this.homeworkDetails.map(x=>{
+      if(x.AssId===id)
+      {
+        this.homeworkDetail=x;     
+      }
+     });
+     console.log(this.homeworkDetail);
     this.openHomeworkModal('select');
   }
 
@@ -59,15 +68,17 @@ homeworkDetail:HomeworkDetails;
       this.homeworkDetail=x;     
     }
    });
+   console.log(this.homeworkDetail);
    this.openViewModal();
   }
   
   openHomeworkModal(mode: 'select' | 'random') {
+    
     console.log(mode);
     this.modalCtrl
       .create({
         component: UploadHomeworkComponent,
-       componentProps: { selectedPlace: this.homework, selectedMode: mode }
+       componentProps: { selectedPlace: this.homework, selectedMode: mode, homework: this.homeworkDetail}
       })
       .then(modalEl => {
         modalEl.present();

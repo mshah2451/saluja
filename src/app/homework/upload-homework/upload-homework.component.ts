@@ -1,18 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ModalController, AlertController } from '@ionic/angular';
 import {FileTransfer,FileUploadOptions,FileTransferObject} from '@ionic-native/file-transfer/ngx'
 import {FileChooser} from '@ionic-native/file-chooser/ngx';
 import {FilePath} from '@ionic-native/file-path/ngx';
 import { File } from '@ionic-native/file/ngx';
-import { JsonPipe } from '@angular/common';
 import { BaseURL } from 'src/app/share/Utility/baseURL';
 import { AuthService } from 'src/app/auth/auth.service';
 import { HomeworkService } from '../homework-service';
-import { async } from '@angular/core/testing';
-import { HomeworkUploadDetails } from '../Homework';
 import { DashboardService } from 'src/app/dashboard/dashboard.service';
 import { studentDetails } from 'src/app/model/studentDetails';
+import { HomeworkUploadDetails, HomeworkDetails } from '../Homework';
 
 
 
@@ -26,6 +24,7 @@ export class UploadHomeworkComponent implements OnInit {
   option: FileUploadOptions;
 image:any;
 fileTransfer:FileTransferObject; 
+@Input() homework : HomeworkDetails;
   constructor
   (private modalCtrl: ModalController,
   private transfer:FileTransfer,
@@ -76,26 +75,11 @@ fileTransfer:FileTransferObject;
           //get the upload 
         //  const uploadUrl = await this.getUploadUrl(fileMeta);
 
-          const response = await this.uploadFile(
+          const response =await this.uploadFile(
               fileMeta
           );
 
-          // var dataaaaa=  await   this.homeservice.UploadHomeworkDetail(new HomeworkUploadDetails("12252",
-          // 3,2,4,4,"","","localhost test","","123","")).subscribe(x)
-          // this.dashboardService.getStudentDetails().subscribe(studentDetail=>{
-          //   this.studentDetail=studentDetail;
-          //   this.isLoading=false;
-          // });
-          // response
-          //     .then(function(success) {
-          //       alert(JSON.stringify(success)); 
-          //       console.log(success); 
-          //    //   this.homeservice.UploadHomeworkDetail()                 
-          //     })
-          //     .catch(function(error) {
-          //       alert(JSON.stringify(error));
-          //       console.log(error);          
-          //     });
+    
       })
       .catch(error => {
         alert(JSON.stringify(error));        
