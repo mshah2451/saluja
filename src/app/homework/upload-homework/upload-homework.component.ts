@@ -11,6 +11,7 @@ import { HomeworkService } from '../homework-service';
 import { DashboardService } from 'src/app/dashboard/dashboard.service';
 import { studentDetails } from 'src/app/model/studentDetails';
 import { HomeworkUploadDetails, HomeworkDetails } from '../Homework';
+import {LoaderService} from '../../services/loader.service';
 
 
 
@@ -35,7 +36,8 @@ remark:string="";
   private authService:AuthService,
   public alertCtrl: AlertController,
   public homeservice:HomeworkService,
-  private dashboarService:DashboardService
+  private dashboarService:DashboardService,
+  private loaderService:LoaderService
   ) { }
   form: FormGroup;
   ngOnInit() {
@@ -111,6 +113,7 @@ async uploadFile(fileMeta) {
     buttons: [ { 
       text: 'Submit',  
       handler:async data => {  
+        this.loaderService.showLoader();
         const fileTransfer: FileTransferObject = this.transfer.create();
         const fileUploadResult = await fileTransfer.upload(fileMeta.nativeURL, `${BaseURL.baseURLAPI}UploadFile`, options);
 try{
@@ -121,10 +124,15 @@ try{
           )).subscribe(x=>{
           console.log(JSON.stringify(x))
           alert(JSON.stringify(x));
+          this.loaderService.hideLoader();
         })
      
 }catch(err){
+  this.loaderService.hideLoader();
   console.log(JSON.stringify(err))
+}
+finally{
+  this.loaderService.hideLoader();
 }
       } 
     

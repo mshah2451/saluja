@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { HomeworkDetails } from '../Homework';
 import {HomeworkService} from '../homework-service';
-import {FileTransfer, FileTransferObject, FileUploadOptions} from '@ionic-native/file-transfer/ngx'
+import {FileTransfer, FileTransferObject,FileUploadOptions} from '@ionic-native/file-transfer/ngx'
 import { File } from '@ionic-native/file/ngx';
 import { AuthService } from 'src/app/auth/auth.service';
 
