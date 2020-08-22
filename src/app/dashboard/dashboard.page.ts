@@ -16,10 +16,8 @@ export class DashboardPage implements OnInit {
 
   ngOnInit() {
     this.loaderService.showLoader();
-    this.isLoading=true;
     this.dashboardService.getStudentDetails().subscribe(studentDetail=>{
       this.studentDetail=studentDetail;
-      this.isLoading=false;
       this.loaderService.hideLoader();
     });
   }
