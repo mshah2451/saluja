@@ -18,7 +18,7 @@ export class HomeworkService implements OnDestroy {
  
   getHomeWorkById(): Observable<any> {
     //const userId = this.authService.userId;
-    const userId='6005177895';
+    const userId=this.authService.userId;
     const url = `${BaseURL.baseURLAPI}ViewAssignmentbyStudent?UserId=${userId}`;
     return this.http.get<any>(url).pipe(
     
@@ -28,7 +28,7 @@ export class HomeworkService implements OnDestroy {
   
   UploadHomeworkDetail(homeworkUploadDetails:HomeworkUploadDetails): Observable<any> {
     //const userId = this.authService.userId;
-    const userId='6005177895';
+    const userId=this.authService.userId;
     const url = `${BaseURL.baseURLAPI}StudentUploadHW`;
     // this.http.post<any>(url,JSON.stringify(homeworkUploadDetails));
 
@@ -68,13 +68,3 @@ export class HomeworkService implements OnDestroy {
 
   
 }
-/*classid: "homeworkUploadDetails.classid",
-       sectionId:homeworkUploadDetails.sectionId,
-       subjectId: homeworkUploadDetails.subjectId,
-       uploadedby: homeworkUploadDetails.uploadedby,
-       deadlineDate: homeworkUploadDetails.deadlineDate,
-       uploadeOn: homeworkUploadDetails.uploadeOn,
-       filepath: homeworkUploadDetails.filepath,
-       FileName: homeworkUploadDetails.FileName,
-       AssId: homeworkUploadDetails.AssId,
-       Remark:homeworkUploadDetails.Remark */
