@@ -18,8 +18,7 @@ homeworkDetail:HomeworkDetails;
   constructor(private modalCtrl: ModalController,    
     private loadingCtrl: LoadingController,
     private actionSheetCtrl: ActionSheetController,
-    private homeworkService:HomeworkService,
-    private toastService:ToastService
+    private homeworkService:HomeworkService
     ) { }
 
   ngOnInit() {
@@ -42,8 +41,6 @@ homeworkDetail:HomeworkDetails;
       })
     );
     console.log(this.homeworkDetails);
-    this.toastService.presentToast();
-  
   }
 
  

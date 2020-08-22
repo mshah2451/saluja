@@ -13,6 +13,7 @@ import { studentDetails } from 'src/app/model/studentDetails';
 import { HomeworkUploadDetails, HomeworkDetails } from '../Homework';
 import {LoaderService} from '../../services/loader.service';
 import { Router } from '@angular/router';
+import {ToastService} from '../../services/toast.service';
 
 
 
@@ -39,7 +40,8 @@ remark:string="";
   public homeservice:HomeworkService,
   private dashboarService:DashboardService,
   private loaderService:LoaderService,
-  private router:Router
+  private router:Router,
+  private toastService:ToastService
   ) { }
   form: FormGroup;
   ngOnInit() {
@@ -120,6 +122,8 @@ try{
           console.log(JSON.stringify(x))
           alert(JSON.stringify(x));
           this.loaderService.hideLoader();
+          this.toastService.presentToast('Your files were successfully saved',2000);
+          this.router.navigateByUrl('/homework');
         })
      
 }catch(err){

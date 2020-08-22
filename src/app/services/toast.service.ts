@@ -1,18 +1,19 @@
 import { Injectable } from '@angular/core';
-import { Toast } from '@ionic-native/toast';
+import { ToastController } from '@ionic/angular';
 @Injectable({
   providedIn: 'root'
 })
 export class ToastService {
 
-  constructor(private toastCtrl: Toast) {
+  constructor(private toastController: ToastController) {
 
   }
-  presentToast() {
-    this.toastCtrl.show(`I'm a toast`, '5000', 'center').subscribe(
-      toast => {
-        console.log(toast);
-      }
-    );
+ async presentToast(message:string,duration:number) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: duration,
+      color:'primary'
+    });
+    toast.present();
   }
 }
