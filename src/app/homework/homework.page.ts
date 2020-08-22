@@ -4,6 +4,7 @@ import { ModalController, LoadingController, ActionSheetController } from '@ioni
 import { Homework ,HomeworkDetails } from './Homework';
 import {HomeworkService} from './homework-service'
 import { HomeworkDetailComponent } from './homework-detail/homework-detail.component';
+import {ToastService} from '../services/toast.service';
 
 @Component({
   selector: 'app-homework',
@@ -17,7 +18,8 @@ homeworkDetail:HomeworkDetails;
   constructor(private modalCtrl: ModalController,    
     private loadingCtrl: LoadingController,
     private actionSheetCtrl: ActionSheetController,
-    private homeworkService:HomeworkService
+    private homeworkService:HomeworkService,
+    private toastService:ToastService
     ) { }
 
   ngOnInit() {
@@ -40,6 +42,7 @@ homeworkDetail:HomeworkDetails;
       })
     );
     console.log(this.homeworkDetails);
+    this.toastService.presentToast();
   
   }
 

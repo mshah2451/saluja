@@ -12,6 +12,7 @@ import { DashboardService } from 'src/app/dashboard/dashboard.service';
 import { studentDetails } from 'src/app/model/studentDetails';
 import { HomeworkUploadDetails, HomeworkDetails } from '../Homework';
 import {LoaderService} from '../../services/loader.service';
+import { Router } from '@angular/router';
 
 
 
@@ -37,7 +38,8 @@ remark:string="";
   public alertCtrl: AlertController,
   public homeservice:HomeworkService,
   private dashboarService:DashboardService,
-  private loaderService:LoaderService
+  private loaderService:LoaderService,
+  private router:Router
   ) { }
   form: FormGroup;
   ngOnInit() {
@@ -74,15 +76,9 @@ remark:string="";
 
   this.getFileInfo()
       .then(async fileMeta => {
-
-          //get the upload 
-        //  const uploadUrl = await this.getUploadUrl(fileMeta);
-
-          const response =await this.uploadFile(
+        const response =await this.uploadFile(
               fileMeta
           );
-
-    
       })
       .catch(error => {
         alert(JSON.stringify(error));        
@@ -120,7 +116,6 @@ try{
         alert(JSON.stringify(fileUploadResult));
         homeworkService.UploadHomeworkDetail(new HomeworkUploadDetails(studentProfile.AdmissionId,studentProfile.ClassId,studentProfile.SectionId
           ,this.homework.SubjectId,4,null,null,JSON.parse(fileUploadResult.response)[0],"file",this.homework.AssId,this.remark
-
           )).subscribe(x=>{
           console.log(JSON.stringify(x))
           alert(JSON.stringify(x));
