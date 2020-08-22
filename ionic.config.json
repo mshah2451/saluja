@@ -1,7 +1,8 @@
 {
   "name": "salujaschoolapp",
   "integrations": {
-    "capacitor": {}
+    "capacitor": {},
+    "cordova": {}
   },
   "type": "angular"
 }
