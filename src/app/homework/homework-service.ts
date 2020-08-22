@@ -17,9 +17,9 @@ export class HomeworkService implements OnDestroy {
   
  
   getHomeWorkById(): Observable<any> {
-    //const userId = this.authService.userId;
-    const userId=this.authService.userId;
-    const url = `${BaseURL.baseURLAPI}ViewAssignmentbyStudent?UserId=${userId}`;
+    let userId;
+     this.authService.userId.subscribe(x=>userId=x);
+    const url = `${BaseURL.baseURLAPI}/ViewStudentAssignment?UserId=${userId}`;
     return this.http.get<any>(url).pipe(
     
     );

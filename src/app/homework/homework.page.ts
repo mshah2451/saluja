@@ -36,8 +36,8 @@ homeworkDetail:HomeworkDetails;
           AssId:element.AssId,
           AssignedBy:element.AssignedBy,
           Date:element.Date,
-          DownloadFileURL:element.DownloadFileURL,
-          LastUploadDate:element.LastUploadDate,
+          DownloadFileURL:element.FilePath,
+          LastUploadDate:element.LastSubmissionDate,
           Status:element.Status,
           Subject:element.Subject,
           SubjectId:element.SubjectId
