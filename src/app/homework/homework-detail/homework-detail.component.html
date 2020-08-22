@@ -74,8 +74,11 @@
         </ion-item>
       </ion-col>
       <ion-col size-md="6" class="ion-text-center">
-        <ion-item>
-          <h6>{{homework.Status}}</h6>
+        <ion-item *ngIf="!homework.Status" >
+          <h6 color="danger">Pending</h6>
+        </ion-item>
+        <ion-item *ngIf="homework.Status" color="success">
+          <h6 >Completed</h6>
         </ion-item>
       </ion-col>
     </ion-row>
