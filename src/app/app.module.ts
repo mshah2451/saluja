@@ -16,6 +16,8 @@ import {FileChooser} from '@ionic-native/file-chooser/ngx';
 import {FilePath} from '@ionic-native/file-path/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { AuthInterceptor } from './auth-interceptors';
+import { Downloader, DownloadRequest, NotificationVisibility } from '@ionic-native/downloader/ngx';
+
 
 
 
@@ -29,6 +31,7 @@ import { AuthInterceptor } from './auth-interceptors';
     FileChooser,
     FilePath,
     File,  
+    Downloader,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {provide:HTTP_INTERCEPTORS,useClass:AuthInterceptor,multi:true}
