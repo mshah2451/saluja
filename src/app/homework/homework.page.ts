@@ -4,7 +4,7 @@ import { ModalController, LoadingController, ActionSheetController } from '@ioni
 import { Homework ,HomeworkDetails } from './Homework';
 import {HomeworkService} from './homework-service'
 import { HomeworkDetailComponent } from './homework-detail/homework-detail.component';
-import {LoaderService} from '../services/loader.service'
+
 @Component({
   selector: 'app-homework',
   templateUrl: './homework.page.html',
@@ -17,12 +17,10 @@ homeworkDetail:HomeworkDetails;
   constructor(private modalCtrl: ModalController,    
     private loadingCtrl: LoadingController,
     private actionSheetCtrl: ActionSheetController,
-    private homeworkService:HomeworkService,
-    private  loaderService:LoaderService) { }
+    private homeworkService:HomeworkService
+    ) { }
 
   ngOnInit() {
-    try {
-    this.loaderService.showLoader();
     this.homeworkDetails=[];
     this.homeworkService.getHomeWorkById().subscribe(map=>      
       map.forEach(element => {
@@ -41,12 +39,8 @@ homeworkDetail:HomeworkDetails;
          )
       })
     );
-    this.loaderService.hideLoader();
     console.log(this.homeworkDetails);
-  }
-  finally{
-    this.loaderService.hideLoader();
-  }
+  
   }
 
  
