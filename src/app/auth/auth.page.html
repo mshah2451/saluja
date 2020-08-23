@@ -34,7 +34,7 @@
         <ion-col size-sm="6" offset-sm="3">
           <ion-list>
             <ion-item>
-              <ion-label position="floating">E-Mail</ion-label>
+              <ion-label position="floating">User Id</ion-label>
               <ion-input
                 type="text"
                 ngModel
@@ -48,7 +48,7 @@
               lines="none"
             >
               <ion-label>
-                Should be a valid email address.
+                Should be a valid user Id .
               </ion-label>
             </ion-item>
             <ion-item>
@@ -83,6 +83,20 @@
             (click)="onSwitchAuthMode()"
           >
           Login
+            <!-- Switch to {{ isLogin ? 'Signup' : 'Login' }} -->
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-button class="loginButton"
+            type="sumbit"
+           
+            fill="clear"
+            expand="block"
+          
+          >
+          forgot password
             <!-- Switch to {{ isLogin ? 'Signup' : 'Login' }} -->
           </ion-button>
         </ion-col>

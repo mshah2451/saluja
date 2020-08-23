@@ -19,11 +19,15 @@ export class FileDowmloaderService {
       notificationVisibility: NotificationVisibility.VisibleNotifyCompleted,
       destinationInExternalFilesDir: {
           dirType: 'Downloads',
-          subPath: 'MyFile.apk'
+          subPath: title
       }
   };
     this.downloader.download(request)
-          .then((location: string) => console.log('File downloaded at:'+location))
-          .catch((error: any) => console.error(error));
+          .then((location: string) => alert(JSON.stringify(location) ))
+          .catch((error: any) =>{
+            console.error(error);
+            alert(JSON.stringify(error) )
+          } );
   }
 }
+

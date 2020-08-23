@@ -11,6 +11,7 @@ import { ShareableModule } from '../share/shareable/shareable.module';
 import { UploadHomeworkComponent } from './upload-homework/upload-homework.component';
 import { HomeworkDetailComponent } from './homework-detail/homework-detail.component';
 
+
 @NgModule({
   imports: [
     CommonModule,
@@ -19,6 +20,7 @@ import { HomeworkDetailComponent } from './homework-detail/homework-detail.compo
     HomeworkPageRoutingModule,
     ShareableModule
   ],
+  
   declarations: [HomeworkPage,UploadHomeworkComponent,HomeworkDetailComponent],
   entryComponents: [UploadHomeworkComponent,HomeworkDetailComponent]
 })

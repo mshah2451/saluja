@@ -5,7 +5,7 @@ import {HomeworkService} from '../homework-service';
 import {FileTransfer, FileTransferObject,FileUploadOptions} from '@ionic-native/file-transfer/ngx'
 import { File } from '@ionic-native/file/ngx';
 import { AuthService } from 'src/app/auth/auth.service';
-//import {FileDowmloaderService} from '../../services/file.dowmloader.service'
+import {FileDowmloaderService} from '../../services/file.dowmloader.service'
 
 @Component({
   selector: 'app-homework-detail',
@@ -20,7 +20,7 @@ export class HomeworkDetailComponent implements OnInit {
     private transfer: FileTransfer, 
     private file: File,
     private authService:AuthService,
-  //  private fileDowmloaderService:FileDowmloaderService
+    private fileDowmloaderService:FileDowmloaderService
     ) 
   {}
 
@@ -31,8 +31,11 @@ export class HomeworkDetailComponent implements OnInit {
   private fileTransfer: FileTransferObject; 
   
 
-  public download(url:string) {  
-   //this.fileDowmloaderService.downloadFile(url,'myFile')
+  public download(url:string) { 
+ 
+    const urlArray=url.split('/');
+      const fileName=urlArray[urlArray.length-1];
+   this.fileDowmloaderService.downloadFile(url,fileName);
   }
 
    // const fileName="myfile";
