@@ -7,8 +7,8 @@
       <ion-col  text-center>
 
         <div>
-          <p style="margin-bottom: 5px; text-align: center;">WELCOME</p>
-          <h1>{{studentDetail?.Name}} {{studentDetail?.LastName}} <span>{{studentDetail?.ClassName}} - {{studentDetail?.SectionName}}</span></h1>
+          <p style="margin-bottom: 5px; font-size: 14px;">WELCOME</p>
+          <h1 style="font-size: 20px;color: black;font-weight: 500; margin-top: 5px;">{{studentDetail?.Name}} {{studentDetail?.LastName}} <span style="float:right; font-size: 12px;margin-top: 6px;">{{studentDetail?.ClassName}} - {{studentDetail?.SectionName}}</span></h1>
         </div>
       </ion-col>
     </ion-row>
@@ -22,7 +22,7 @@
                   <ion-icon
                     class="Iconfont"
                     name="book-outline"
-                    slot="start"
+                    slot="start" [style.color]="'#a768f3'"
                   ></ion-icon>
                 </h6>
               </div>
@@ -30,7 +30,7 @@
             <ion-col size="9" text-center>
               <div class="ion-text-center">
                 <h6 class="m-0">
-                  <ion-label slot="start">HomeWork</ion-label>
+                  <ion-label slot="start">Home Work</ion-label>
                 </h6>
               </div>
             </ion-col>
@@ -43,7 +43,7 @@
             <ion-col size="3" size-md="2">
               <div>
                 <h6 class="m-0">
-                  <ion-icon    class="Iconfont" name="calendar-outline" slot="start"></ion-icon>
+                  <ion-icon [style.color]="'#ed1b60'"  class="Iconfont" name="calendar-outline" slot="start"></ion-icon>
                
                 </h6>
               </div>
@@ -65,7 +65,7 @@
             <ion-col size="3" size-md="2">
               <div>
                 <h6 class="m-0">
-                  <ion-icon    class="Iconfont" name="stats-chart-outline" slot="start"></ion-icon>
+                  <ion-icon  [style.color]="'#f83f37'"   class="Iconfont" name="stats-chart-outline" slot="start"></ion-icon>
                 </h6>
               </div>
             </ion-col>
@@ -86,7 +86,7 @@
             <ion-col size="3" size-md="2">
               <div>
                 <h6 class="m-0">
-                  <ion-icon    class="Iconfont" name="notifications-outline" slot="start"></ion-icon>
+                  <ion-icon [style.color]="'#22af47'"    class="Iconfont" name="notifications-outline" slot="start"></ion-icon>
                 </h6>
               </div>
             </ion-col>
@@ -107,7 +107,7 @@
             <ion-col size="3" size-md="2">
               <div>
                 <h6 class="m-0">
-                  <ion-icon    class="Iconfont" name="help-outline" slot="start"></ion-icon>     
+                  <ion-icon    [style.color]="'#ffbf36'"  class="Iconfont" name="help-outline" slot="start"></ion-icon>     
                 </h6>
               </div>
             </ion-col>

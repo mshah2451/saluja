@@ -22,3 +22,33 @@
     .profile{
         border-radius: 50%;
     }
+
+    .center{
+    
+      margin-left: 50%;
+    }
+
+    .profilepic{
+      width: 40px;
+      height: 41px;
+      margin-top: 14px;
+      margin-left: 10px;
+    }
+    ion-toolbar {
+      --color: #ffffff;
+      --background: #142347;
+  }
+  .item-background-color{
+    --ion-item-background:#142347;
+}
+.button-native{
+  background: none;
+}
+
+.studentProfile{
+  width: 45px;
+  height: 45px;
+  margin-top: 10px;
+  vertical-align: middle;
+  margin-left: 14px;
+}

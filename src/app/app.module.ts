@@ -17,6 +17,7 @@ import {FilePath} from '@ionic-native/file-path/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { AuthInterceptor } from './auth-interceptors';
 import { Downloader, DownloadRequest, NotificationVisibility } from '@ionic-native/downloader/ngx';
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 
 
 
@@ -30,6 +31,7 @@ import { Downloader, DownloadRequest, NotificationVisibility } from '@ionic-nati
     FileTransfer,
     FileChooser,
     FilePath,
+    Camera,
     File,  
     Downloader,
     SplashScreen,

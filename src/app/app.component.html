@@ -1,25 +1,16 @@
 <ion-app>
   <ion-menu side="start">
-    <ion-header>
-      <ion-toolbar>
-      
-        <ion-avatar>
-          <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
-        </ion-avatar>
-       
-      </ion-toolbar>
-    </ion-header>
 
     <ion-content>
       <ion-list>
-        <ion-menu-toggle>
-          <ion-item lines="none" routerLink="/dashboard">
-            <ion-icon name="business" slot="start"></ion-icon>
+        <ion-menu-toggle style="background-color: blue;">
+          <ion-item lines="none" class="listItBg" routerLink="/dashboard">
+            <ion-icon name="business" slot="start"  [style.color]="'#EF3B51'"></ion-icon>
             <ion-label>Dashboard</ion-label>
           </ion-item>
         </ion-menu-toggle>
         <ion-menu-toggle>
-          <ion-item lines="none" routerLink="/homework">
+          <ion-item lines="none"   class="listItBg"  [style.color]="'#EF3B51'" routerLink="/homework">
             <ion-icon name="book-outline" slot="start"></ion-icon>
             <ion-label>HomeWork</ion-label>
           </ion-item>

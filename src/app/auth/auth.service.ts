@@ -113,7 +113,7 @@ export class AuthService implements OnDestroy {
     return this.http
       .post<AuthResponseData>(
         `${BaseURL.baseURLAPI}login`,
-        { UserId: UserId, password: password, returnSecureToken: true }
+        { UserId: "test1", password: "password1", returnSecureToken: true }
       )
       .pipe(tap(this.setUserData.bind(this)));
   }

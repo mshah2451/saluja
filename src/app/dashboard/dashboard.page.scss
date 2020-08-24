@@ -1,6 +1,6 @@
 .card {
     background-color: #142347; // black
-    
+    border-radius: 10px;;
   }
   .text-color{
     color: white !important;
@@ -8,4 +8,9 @@
   .Iconfont{
     font-size: 30px;
   }
-  
+  h6{
+    margin-top: 20px;
+    padding-top: 3px;
+font-size: 1rem;
+font-weight: 600;
+  }
