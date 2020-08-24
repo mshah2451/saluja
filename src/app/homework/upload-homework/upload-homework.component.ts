@@ -169,18 +169,33 @@ takepick(){
 
 onImagePicked(imageData: string | File) {
   let imageFile;
+  const homeservice=this.homeservice;
+  let studentProfile:studentDetails;
+  this.dashboarService.studentProfile.subscribe(x=>{
+    studentProfile =x;
+  });
   if (typeof imageData === 'string') {
     try {
       imageFile = this.base64toBlob(
         imageData.replace('data:image/jpeg;base64,', ''),
         'image/jpeg'
       );
-      this.homeservice.uploadImage(imageFile).subscribe(x=>{
+      homeservice.uploadImage(imageFile).subscribe(x=>{
         console.log(JSON.stringify(x))
         alert(JSON.stringify(x));
-        this.loaderService.hideLoader();
-        this.toastService.presentToast('File successfully uploaded!',2000);
-        this.router.navigateByUrl('/homework');
+        // this.loaderService.hideLoader();
+        // this.toastService.presentToast('File successfully uploaded!',2000);
+        // this.router.navigateByUrl('/homework');
+
+        homeservice.UploadHomeworkDetail(new HomeworkUploadDetails(studentProfile.AdmissionId,studentProfile.ClassId,studentProfile.SectionId
+          ,this.homework.SubjectId,4,null,null,JSON.parse(x.response)[0],"file",this.homework.AssId,this.remark
+          )).subscribe(x=>{
+          console.log(JSON.stringify(x))
+          alert(JSON.stringify(x));
+          this.loaderService.hideLoader();
+          this.toastService.presentToast('Your files were successfully saved',2000);
+          this.router.navigateByUrl('/homework');
+        })
       })
 
     } catch (error) {
