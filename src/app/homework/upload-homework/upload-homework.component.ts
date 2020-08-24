@@ -180,13 +180,12 @@ onImagePicked(imageData: string | File) {
         imageData.replace('data:image/jpeg;base64,', ''),
         'image/jpeg'
       );
+      alert('base64toBlob finish');
+      alert(JSON.stringify(imageFile));
       homeservice.uploadImage(imageFile).subscribe(x=>{
         console.log(JSON.stringify(x))
         alert(JSON.stringify(x));
-        // this.loaderService.hideLoader();
-        // this.toastService.presentToast('File successfully uploaded!',2000);
-        // this.router.navigateByUrl('/homework');
-
+        
         homeservice.UploadHomeworkDetail(new HomeworkUploadDetails(studentProfile.AdmissionId,studentProfile.ClassId,studentProfile.SectionId
           ,this.homework.SubjectId,4,null,null,JSON.parse(x.response)[0],"file",this.homework.AssId,this.remark
           )).subscribe(x=>{
@@ -209,6 +208,7 @@ onImagePicked(imageData: string | File) {
 }
 
 base64toBlob(base64Data, contentType) {
+  alert('base64toBlob starting');
   contentType = contentType || '';
   const sliceSize = 1024;
   const byteCharacters = window.atob(base64Data);
@@ -226,7 +226,9 @@ base64toBlob(base64Data, contentType) {
     }
     byteArrays[sliceIndex] = new Uint8Array(bytes);
   }
-  return new Blob(byteArrays, { type: contentType });
+  const data=new Blob(byteArrays, { type: contentType });
+  alert(data)
+  return  data;
 }
 
 }
