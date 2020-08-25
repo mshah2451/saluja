@@ -16,7 +16,11 @@ const routes: Routes = [
     path: 'homework',
     loadChildren: () => import('./homework/homework.module').then( m => m.HomeworkPageModule),
     canLoad: [AuthGuard]
+  },  {
+    path: 'attendence',
+    loadChildren: () => import('./attendence/attendence.module').then( m => m.AttendencePageModule)
   },
+
   
   
 ];
