@@ -3,17 +3,57 @@
     <ion-title>attendence</ion-title>
   </ion-toolbar>
 </ion-header>
-
-<ion-content padding>
- <calendar [eventSource]="eventSource"
-        [calendarMode]="calendar.mode"
-        [currentDate]="calendar.currentDate"
-        (onCurrentDateChanged)="onCurrentDateChanged($event)"
-        (onRangeChanged)="reloadSource(startTime, endTime)"
-        (onEventSelected)="onEventSelected($event)"
-        (onTitleChanged)="onViewTitleChanged($event)"
-        (onTimeSelected)="onTimeSelected($event)"
-        step="30">
-        
+<ion-content>
+  
+  <ion-row>
+    <ion-col  size-sm="6" offset-sm="3">
+      <ion-item class="center">
+        <ion-label >Present</ion-label>           
+      </ion-item>
+    </ion-col>
+    <ion-col size-sm="6" offset-sm="3">
+      <ion-item class="center">
+        <ion-label color="success">{{totalPresent}}</ion-label>           
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size-sm="6" offset-sm="3">
+      <ion-item class="center">
+        <ion-label>Absent</ion-label>           
+      </ion-item>
+    </ion-col>
+    <ion-col size-sm="6" offset-sm="3">
+      <ion-item class="center">
+        <ion-label color="danger">{{totalAbsent}}</ion-label>           
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size-sm="6" offset-sm="3">
+      <ion-item class="center">
+        <ion-label >Total</ion-label>           
+      </ion-item>
+    </ion-col>
+    <ion-col size-sm="6" offset-sm="3">
+      <ion-item class="center">
+        <ion-label>{{totalAbsent+totalPresent}}</ion-label>           
+      </ion-item>
+    </ion-col>
+  </ion-row>
+  <ion-button (click)="back()"> <ion-icon name="arrow-back"></ion-icon> </ion-button>
+  <ion-button (click)="next()"> <ion-icon name="arrow-forward"></ion-icon></ion-button>
+  <ion-label class="dayName">{{weekDayName}}</ion-label>
+  <ion-label class="dayName">{{monthName}}</ion-label>
+  <ion-label class="dayName">{{yearName}}</ion-label>
+ <calendar  class="ion-no-padding" [calendarMode]="calendar.mode"
+            [currentDate]="calendar.currentDate"
+            [showEventDetail] = "false"
+            (onCurrentDateChanged)="onCurrentDateChanged($event)"
+            (onRangeChanged)="reloadSource(startTime, endTime)"
+            (onEventSelected)="onEventSelected($event)"
+            (onTitleChanged)="onViewTitleChanged($event)"
+            (onTimeSelected)="onTimeSelected($event)"
+            step="30">
     </calendar>
 </ion-content>

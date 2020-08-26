@@ -39,10 +39,7 @@ import { NgCalendarModule  } from 'ionic2-calendar';
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {provide:HTTP_INTERCEPTORS,useClass:AuthInterceptor,multi:true}
   ],
-  schemas: [
-    CUSTOM_ELEMENTS_SCHEMA,
-    NO_ERRORS_SCHEMA
-  ],
+ 
   bootstrap: [AppComponent]
 })
 export class AppModule {}
