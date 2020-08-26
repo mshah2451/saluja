@@ -9,14 +9,15 @@ import { AttendencePageRoutingModule } from './attendence-routing.module';
 
 import { AttendencePage } from './attendence.page';
 import { NgCalendarModule  } from 'ionic2-calendar';
-
+import { ShareableModule } from '../share/shareable/shareable.module';
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
     AttendencePageRoutingModule,
-    NgCalendarModule
+    NgCalendarModule,
+    ShareableModule
   ],
   declarations: [AttendencePage], 
   schemas: [
