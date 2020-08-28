@@ -31,11 +31,14 @@ export class HomeworkDetailComponent implements OnInit {
   private fileTransfer: FileTransferObject; 
   
 
-  public download(url:string) { 
- 
-    const urlArray=url.split('/');
-      const fileName=urlArray[urlArray.length-1];
-   this.fileDowmloaderService.downloadFile(url,fileName);
+  public download(url: string) { 
+    const urls = url.split(',');
+    for (let fileCount = 0; fileCount < urls.length; fileCount++) { 
+      let fileURL = urls[fileCount];
+      const urlArray=fileURL.split('/');
+      const fileName=fileURL[urlArray.length-1];
+      this.fileDowmloaderService.downloadFile(fileURL,fileName);
+    }
   }
 
    // const fileName="myfile";

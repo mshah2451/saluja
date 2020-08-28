@@ -29,7 +29,8 @@ export class UploadHomeworkComponent implements OnInit {
 image:any;
 fileTransfer:FileTransferObject; 
 remark:string="";
-@Input() homework : HomeworkDetails;
+  @Input() homework: HomeworkDetails;
+  @Input() getHomeWorkDetails : Function;
   constructor
   (private modalCtrl: ModalController,
   private transfer:FileTransfer,
@@ -54,6 +55,7 @@ remark:string="";
 
   onCancel() {
     this.modalCtrl.dismiss(null, 'cancel');
+    this.getHomeWorkDetails();
   }
   getFileInfo(): Promise<any> {
     return this.filechooser.open().then(fileURI => {
@@ -109,7 +111,7 @@ async uploadFile(fileMeta) {
   };
   const alertTest = await this.alertCtrl.create({  
     header: 'Do you want to submit?',  
-    message: 'Once the assignment submit,you can not be Submit again!!',  
+    message: 'If there are any pending asignments,you can Submit again!!',  
     buttons: [ { 
       text: 'Submit',  
       handler:async data => {  
@@ -125,10 +127,10 @@ try{
           alert(JSON.stringify(x));
           this.loaderService.hideLoader();
           this.toastService.presentToast('Your files were successfully saved',2000);
-          this.router.navigateByUrl('/homework');
+            this.onCancel();
         })
      
-}catch(err){
+} catch(err){
   this.loaderService.hideLoader();
   console.log(JSON.stringify(err))
 }

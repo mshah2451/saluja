@@ -4,7 +4,8 @@ import { ModalController, LoadingController, ActionSheetController } from '@ioni
 import { Homework ,HomeworkDetails } from './Homework';
 import {HomeworkService} from './homework-service'
 import { HomeworkDetailComponent } from './homework-detail/homework-detail.component';
-import {ToastService} from '../services/toast.service';
+import { ToastService } from '../services/toast.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-homework',
@@ -22,7 +23,16 @@ homeworkDetail:HomeworkDetails;
     ) { }
 
   ngOnInit() {
-    this.homeworkDetails=[];
+    this.homeworkDetails = [];
+    this.getHomeWorkDetails();
+    console.log(this.homeworkDetails);
+  }
+
+  getFormatedDate(date:string) { 
+   return moment(date).format("DD/MM/YYYY");
+  }
+
+  getHomeWorkDetails() { 
     this.homeworkService.getHomeWorkById().subscribe(map=>      
       map.forEach(element => {
         this.homeworkDetails.push
@@ -30,9 +40,9 @@ homeworkDetail:HomeworkDetails;
           {
           AssId:element.AssId,
           AssignedBy:element.AssignedBy,
-          Date:element.Date,
+          Date:  this.getFormatedDate(element.Date) ,
           DownloadFileURL:element.FilePath,
-          LastUploadDate:element.LastSubmissionDate,
+          LastUploadDate:this.getFormatedDate(element.LastSubmissionDate),
           Status:element.Status,
           Subject:element.Subject,
           SubjectId:element.SubjectId
@@ -40,10 +50,7 @@ homeworkDetail:HomeworkDetails;
          )
       })
     );
-    console.log(this.homeworkDetails);
   }
-
- 
   
   onBookPlace(id : string) {
     this.homeworkDetails.map(x=>{
@@ -73,7 +80,13 @@ homeworkDetail:HomeworkDetails;
     this.modalCtrl
       .create({
         component: UploadHomeworkComponent,
-       componentProps: { selectedPlace: this.homework, selectedMode: mode, homework: this.homeworkDetail}
+        componentProps:
+        {
+          selectedPlace: this.homework,
+          selectedMode: mode,
+          homework: this.homeworkDetail,
+          getHomeWorkDetails:this.getHomeWorkDetails()
+        }
       })
       .then(modalEl => {
         modalEl.present();
