@@ -1,4 +1,4 @@
-<app-header></app-header>  
+<app-header></app-header>
 <ion-content>
   <ion-grid>
   <ion-row>
@@ -52,7 +52,7 @@
             [currentDate]="calendar.currentDate"
             [showEventDetail] = "false"
             (onCurrentDateChanged)="onCurrentDateChanged($event)"
-            (onRangeChanged)="reloadSource(startTime, endTime)"
+            (onRangeChanged)="reloadSource(null, null)"
             (onEventSelected)="onEventSelected($event)"
             (onTitleChanged)="onViewTitleChanged($event)"
             (onTimeSelected)="onTimeSelected($event)"
