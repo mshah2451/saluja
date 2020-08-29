@@ -36,7 +36,7 @@ export class HomeworkDetailComponent implements OnInit {
     for (let fileCount = 0; fileCount < urls.length; fileCount++) { 
       let fileURL = urls[fileCount];
       const urlArray=fileURL.split('/');
-      const fileName=fileURL[urlArray.length-1];
+      const fileName=urlArray[urlArray.length-1];
       this.fileDowmloaderService.downloadFile(fileURL,fileName);
     }
   }

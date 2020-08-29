@@ -111,7 +111,6 @@ async uploadFile(fileMeta) {
   };
   const alertTest = await this.alertCtrl.create({  
     header: 'Do you want to submit?',  
-    message: 'If there are any pending asignments,you can Submit again!!',  
     buttons: [ { 
       text: 'Submit',  
       handler:async data => {  
@@ -119,14 +118,13 @@ async uploadFile(fileMeta) {
         const fileTransfer: FileTransferObject = this.transfer.create();
         const fileUploadResult = await fileTransfer.upload(fileMeta.nativeURL, `${BaseURL.baseURLAPI}UploadFile`, options);
 try{
-        alert(JSON.stringify(fileUploadResult));
+      
         homeworkService.UploadHomeworkDetail(new HomeworkUploadDetails(studentProfile.AdmissionId,studentProfile.ClassId,studentProfile.SectionId
           ,this.homework.SubjectId,4,null,null,JSON.parse(fileUploadResult.response)[0],"file",this.homework.AssId,this.remark
           )).subscribe(x=>{
-          console.log(JSON.stringify(x))
-          alert(JSON.stringify(x));
           this.loaderService.hideLoader();
-          this.toastService.presentToast('Your files were successfully saved',2000);
+          this.toastService.presentToast('Your files were successfully saved',2000);  
+          this.toastService.presentToast('If there are any pending files , You can upload again!',3000);  
             this.onCancel();
         })
      
