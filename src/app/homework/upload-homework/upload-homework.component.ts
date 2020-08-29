@@ -124,8 +124,8 @@ try{
           )).subscribe(x=>{
           this.loaderService.hideLoader();
           this.toastService.presentToast('Your files were successfully saved',2000);  
-          this.toastService.presentToast('If there are any pending files , You can upload again!',3000);  
-            this.onCancel();
+          this.recuresiveUpload(); 
+          this.onCancel();
         })
      
 } catch(err){
@@ -146,6 +146,28 @@ finally{
   }); 
   await alertTest.present();  
 }
+
+ async recuresiveUpload() { 
+
+    const alertTest = await this.alertCtrl.create({  
+      header: 'If there are any pending files, You can hit submit',  
+      buttons: [ { 
+        text: 'Submit',  
+        handler:async data => {  
+          this.selectAFile();
+        } 
+      
+      }, {
+        text: 'Cancel',  
+        handler: data => {  
+          this.onCancel();
+          return;
+        }  
+      } ]  
+    }); 
+    await alertTest.present(); 
+  }
+  
 takepick(){
   const options: CameraOptions = {
     quality: 100,
