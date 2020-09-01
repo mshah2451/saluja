@@ -25,7 +25,25 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
+
+// $colors: red;
 .monthview-selected {
-    background-color:white !important;;
-    color:black !important;;
-}
+    background-color: white !important;
+    color: black !important;
+  }
+  .monthview-primary-with-event{
+    background-color: white !important;;
+    color: white;
+  }
+.absent{
+      color: red !important;
+      background-color: white !important;
+  }
+  .present{
+    color: green !important;
+    background-color: white !important;
+  }
+  .holiday{
+    color: rgb(0, 7, 105)!important;
+    background-color: white !important;
+  }
