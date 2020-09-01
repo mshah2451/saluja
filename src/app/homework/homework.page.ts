@@ -64,14 +64,25 @@ homeworkDetail:HomeworkDetails;
   }
 
   onViewHomework(id : string) {
-   this.homeworkDetails.map(x=>{
-    if(x.AssId===id)
-    {
-      this.homeworkDetail=x;     
-    }
-   });
+   this.homeworkService.getHomeWorkById().subscribe(map=>      
+    map.forEach(element => {
+      if (element.AssId === id) { 
+        this.homeworkDetail = Object.assign({
+            AssId:element.AssId,
+            AssignedBy:element.AssignedBy,
+            Date:  this.getFormatedDate(element.Date) ,
+            DownloadFileURL:element.FilePath,
+            LastUploadDate:this.getFormatedDate(element.LastSubmissionDate),
+            Status:element.Status,
+            Subject:element.Subject,
+            SubjectId:element.SubjectId
+        });
+        this.openViewModal();
+      }
+    })
+  );
    console.log(this.homeworkDetail);
-   this.openViewModal();
+  
   }
   
   openHomeworkModal(mode: 'select' | 'random') {
