@@ -28,9 +28,8 @@
       <ion-row *ngFor="let homework of homeworkDetails" class="nameClass" justify-content-center align-items-center
         style='height: 100%'>
 
-
         <ion-col class="tablecol1">
-          <div class="subclass">
+          <div class="subclass {{homework.Status ? 'greendiv' : ''}}">
             {{homework.Subject}}
           </div>
         </ion-col>
