@@ -15,7 +15,27 @@ import {LoaderService} from '../../services/loader.service';
 import { Router } from '@angular/router';
 import {ToastService} from '../../services/toast.service';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { HttpClient } from '@angular/common/http';
+function base64toBlob(base64Data, contentType) {
+  contentType = contentType || '';
+  const sliceSize = 1024;
+  const byteCharacters = window.atob(base64Data);
+  const bytesLength = byteCharacters.length;
+  const slicesCount = Math.ceil(bytesLength / sliceSize);
+  const byteArrays = new Array(slicesCount);
 
+  for (let sliceIndex = 0; sliceIndex < slicesCount; ++sliceIndex) {
+    const begin = sliceIndex * sliceSize;
+    const end = Math.min(begin + sliceSize, bytesLength);
+
+    const bytes = new Array(end - begin);
+    for (let offset = begin, i = 0; offset < end; ++i, ++offset) {
+      bytes[i] = byteCharacters[offset].charCodeAt(0);
+    }
+    byteArrays[sliceIndex] = new Uint8Array(bytes);
+  }
+  return new Blob(byteArrays, { type: contentType });
+}
 
 
 @Component({
@@ -44,7 +64,8 @@ remark:string="";
   private loaderService:LoaderService,
   private router:Router,
   private toastService:ToastService,
-  private camera: Camera
+  private camera: Camera,
+  private http:HttpClient
   ) { }
   form: FormGroup;
   ngOnInit() {
@@ -118,7 +139,7 @@ async uploadFile(fileMeta) {
         const fileTransfer: FileTransferObject = this.transfer.create();
         const fileUploadResult = await fileTransfer.upload(fileMeta.nativeURL, `${BaseURL.baseURLAPI}UploadFile`, options);
 try{
-      
+
         homeworkService.UploadHomeworkDetail(new HomeworkUploadDetails(studentProfile.AdmissionId,studentProfile.ClassId,studentProfile.SectionId
           ,this.homework.SubjectId,4,null,null,JSON.parse(fileUploadResult.response)[0],"file",this.homework.AssId,this.remark
           )).subscribe(x=>{
@@ -176,15 +197,33 @@ takepick(){
     destinationType: this.camera.DestinationType.DATA_URL,
     encodingType: this.camera.EncodingType.JPEG,
     mediaType: this.camera.MediaType.PICTURE
-  }
+  };
+  let studentProfile:studentDetails;
+  this.dashboarService.studentProfile.subscribe(x=>{
+    studentProfile =x;
+  });
   
   this.camera.getPicture(options).then((imageData) => {
    // imageData is either a base64 encoded string or a file URI
    // If it's base64 (DATA_URL):
-   this.loaderService.showLoader();
+  // this.loaderService.showLoader();
+  var imageFile = base64toBlob(
+    imageData.replace('data:image/jpeg;base64,', ''),
+    'image/jpeg'
+  );
    alert(JSON.stringify(imageData));
-  //  let base64Image = 'data:image/jpeg;base64,' + imageData;
-  //  this.onImagePicked(base64Image);
+   const url = `${BaseURL.baseURLAPI}/UploadFile`;
+   this.http.post(url,imageFile).subscribe(fileUploadResult=>{
+     alert(JSON.stringify(fileUploadResult));
+    this.homeservice.UploadHomeworkDetail(new HomeworkUploadDetails(studentProfile.AdmissionId,studentProfile.ClassId,studentProfile.SectionId
+      ,this.homework.SubjectId,4,null,null,"success","file",this.homework.AssId,this.remark
+      )).subscribe(x=>{
+      this.loaderService.hideLoader();
+      this.toastService.presentToast('Your files were successfully saved',2000);  
+      this.recuresiveUpload(); 
+    //  this.onCancel();
+    })
+   });
   }, (err) => {
     alert(JSON.stringify(err));
     this.loaderService.hideLoader();
