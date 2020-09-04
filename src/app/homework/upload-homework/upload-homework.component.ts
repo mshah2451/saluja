@@ -171,7 +171,7 @@ finally{
 takepick(){
   const options: CameraOptions = {
     quality: 100,
-    destinationType: this.camera.DestinationType.FILE_URI,
+    destinationType: this.camera.DestinationType.DATA_URL,
     encodingType: this.camera.EncodingType.JPEG,
     mediaType: this.camera.MediaType.PICTURE
   }
@@ -181,8 +181,8 @@ takepick(){
    // If it's base64 (DATA_URL):
    this.loaderService.showLoader();
    alert(JSON.stringify(imageData));
-   let base64Image = 'data:image/jpeg;base64,' + imageData;
-   this.onImagePicked(base64Image);
+  //  let base64Image = 'data:image/jpeg;base64,' + imageData;
+  //  this.onImagePicked(base64Image);
   }, (err) => {
     alert(JSON.stringify(err));
     this.loaderService.hideLoader();
