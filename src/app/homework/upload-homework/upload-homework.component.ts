@@ -125,7 +125,7 @@ try{
           this.loaderService.hideLoader();
           this.toastService.presentToast('Your files were successfully saved',2000);  
           this.recuresiveUpload(); 
-          this.onCancel();
+        //  this.onCancel();
         })
      
 } catch(err){
@@ -140,6 +140,8 @@ finally{
     }, {
       text: 'Cancel',  
       handler: data => {  
+        this.onCancel();
+
        return
       }  
     } ]  
