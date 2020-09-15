@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
 import {ToastService} from '../../services/toast.service';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { HttpClient } from '@angular/common/http';
+import { error } from 'protractor';
 function base64toBlob(base64Data, contentType) {
   contentType = contentType || '';
   const sliceSize = 1024;
@@ -212,6 +213,8 @@ takepick(){
     'image/jpeg'
   );
    alert(JSON.stringify(imageData));
+   imageFile["lastModifiedDate"] = new Date();
+   imageFile["name"] = "file.jpg";
    const url = `${BaseURL.baseURLAPI}/UploadFile`;
    this.http.post(url,imageFile).subscribe(fileUploadResult=>{
      alert(JSON.stringify(fileUploadResult));
@@ -224,7 +227,14 @@ takepick(){
       this.toastService.presentToast('Your files were successfully saved',2000);  
       //this.recuresiveUpload(); 
     //  this.onCancel();
+    },(err)=>{
+      alert("error in HomeworkUploadDetails");
+      alert(JSON.stringify(err));
     })
+   },(err)=>{
+     alert("error in UploadFile");
+     
+     alert(JSON.stringify(err));
    });
   }, (err) => {
       alert("Error aan gyi");

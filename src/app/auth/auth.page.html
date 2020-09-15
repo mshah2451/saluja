@@ -64,7 +64,7 @@
             </ion-item> -->
           <ion-item class="i2"no-lines>
             <ion-input required type="{{type}}"  minlength="6" #passwordCtrl="ngModel"
-             name="password" [(ngModel)]="password"
+             name="password" ngModel
              placeholder="Password" style="width: 40px;" no-lines>
             </ion-input>
             <button *ngIf="!showPass" ion-button clear color="dark" type="button" item-right (click)="showPassword()"> 
