@@ -1,0 +1,70 @@
+<app-header></app-header>
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size-md="9" offset-md="3" class="ion-text-center bg-color roundcorner">
+        <h1 class="my-pro">My Profile</h1>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <img width="100%" class="br-radi"  src="assets/student.jpg" alt="" />
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <div class="profile-cover__img">
+          <img src="assets/student.jpg" alt="">
+          <h3 class="h3">{{student.Name}} {{student.LastName}}</h3>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <div class="profile-cover__info">
+          <ul class="nav">
+            <li>
+              <strong>{{student.ClassName}} - <span>{{student.SectionName}}</span></strong>Class
+            </li>
+            <li>
+              <strong>{{student.RollNumber}}</strong>Roll No.
+            </li>
+            <li>
+              <strong>{{student.AdmissionId}}</strong>Enrollment No.
+            </li>
+          </ul>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      
+      <ion-col>
+        <div class="panel">
+          <div class="panel-heading">
+            <h3 class="panel-title">About Me</h3>
+          </div>
+          <div class="panel-content panel-about">
+            <ion-row>
+              <ion-col size="5" class="clrhead"><ion-icon name="people-circle-outline"></ion-icon> F's Name</ion-col>
+              <ion-col size="7" class="clrhead1">{{student.Name}} {{student.LastName}}</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="5" class="clrhead"><ion-icon name="calendar-outline"></ion-icon> Date of Birth</ion-col>
+              <ion-col size="7" class="clrhead1">{{student.Dob | date }}</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="5" class="clrhead"><ion-icon name="navigate-outline"></ion-icon> Address</ion-col>
+              <ion-col size="7" class="clrhead1">{{student.Adress}}</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="5" class="clrhead"><ion-icon name="call-outline"></ion-icon> Mobile No.</ion-col>
+              <ion-col size="7" class="clrhead1">{{student.Mobile}}</ion-col>
+            </ion-row>
+            
+          </div>
+       
+        </div>
+      </ion-col>
+    </ion-row>
+    </ion-grid>
+</ion-content>

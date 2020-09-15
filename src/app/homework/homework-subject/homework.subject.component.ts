@@ -109,5 +109,9 @@ homeworkDetails:HomeworkDetails[];
         }
       });
   }
+  
+  onCancel() {
+    this.modalCtrl.dismiss(null, 'cancel');
+  }
 
 }
