@@ -34,13 +34,13 @@
         <ion-col size-sm="6" offset-sm="3">
           <ion-list>
             <ion-item>
-              <ion-label position="floating">User Id</ion-label>
               <ion-input
                 type="text"
                 ngModel
                 name="email"
                 required
                 #emailCtrl="ngModel"
+                placeholder="User Id"
               ></ion-input>
             </ion-item>
             <ion-item
@@ -51,7 +51,7 @@
                 Should be a valid user Id .
               </ion-label>
             </ion-item>
-            <ion-item>
+            <!-- <ion-item>
               <ion-label position="floating">Password</ion-label>
               <ion-input
                 type="password"
@@ -61,7 +61,19 @@
                 minlength="6"
                 #passwordCtrl="ngModel"
               ></ion-input>
-            </ion-item>
+            </ion-item> -->
+          <ion-item class="i2"no-lines>
+            <ion-input required type="{{type}}"  minlength="6" #passwordCtrl="ngModel"
+             name="password" [(ngModel)]="password"
+             placeholder="Password" style="width: 40px;" no-lines>
+            </ion-input>
+            <button *ngIf="!showPass" ion-button clear color="dark" type="button" item-right (click)="showPassword()"> 
+               <ion-icon name="eye" style="font-size:25px;"></ion-icon>
+            </button>
+            <button *ngIf="showPass" ion-button clear color="dark" type="button" item-right (click)="showPassword()"> 
+               <ion-icon name="eye-off" style="font-size:25px;"></ion-icon>
+            </button>
+         </ion-item>
             <ion-item
               *ngIf="!passwordCtrl.valid && passwordCtrl.touched"
               lines="none"

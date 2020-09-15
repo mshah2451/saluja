@@ -215,18 +215,21 @@ takepick(){
    const url = `${BaseURL.baseURLAPI}/UploadFile`;
    this.http.post(url,imageFile).subscribe(fileUploadResult=>{
      alert(JSON.stringify(fileUploadResult));
+     alert("file upload ho gyi");
     this.homeservice.UploadHomeworkDetail(new HomeworkUploadDetails(studentProfile.AdmissionId,studentProfile.ClassId,studentProfile.SectionId
       ,this.homework.SubjectId,4,null,null,"success","file",this.homework.AssId,this.remark
-      )).subscribe(x=>{
+    )).subscribe(x => {
+      alert("Api ko hit chli gyi");
       this.loaderService.hideLoader();
       this.toastService.presentToast('Your files were successfully saved',2000);  
-      this.recuresiveUpload(); 
+      //this.recuresiveUpload(); 
     //  this.onCancel();
     })
    });
   }, (err) => {
-    alert(JSON.stringify(err));
-    this.loaderService.hideLoader();
+      alert("Error aan gyi");
+      alert(JSON.stringify(err));
+      this.loaderService.hideLoader();
   });
 }
 
@@ -259,7 +262,6 @@ onImagePicked(imageData: string | File) {
           this.router.navigateByUrl('/homework');
         })
       })
-
     } catch (error) {
       alert(JSON.stringify(error));
     }

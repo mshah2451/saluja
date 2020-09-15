@@ -1,0 +1,68 @@
+<ion-content>
+    <ion-grid>
+      <ion-row>
+        <ion-col size-md="9" offset-md="3" class="ion-text-center bg-color roundcorner">
+          <h1>{{subjects[0].Subject}}</h1>
+        </ion-col>
+      </ion-row>
+      <ion-card>
+        <ion-row class="nameClass" justify-content-center align-items-center style='height: 100%'>
+  
+  
+          <ion-col class="tablecol">
+            <div>
+              Date
+            </div>
+          </ion-col>
+          <ion-col class="tablecol">
+            <div>
+              Action
+            </div>
+          </ion-col>
+          <ion-col class="tablecol">
+            <div>
+              Status
+            </div>
+          </ion-col>
+  
+  
+        </ion-row>
+        <div *ngFor="let subject of subjects">
+        <ion-row 
+         class="nameClass" justify-content-center align-items-center style='height: 100%'>
+  
+  
+          <ion-col class="tablecol1">
+            <div class="subclass" style="font-weight: 600;">
+             {{subject.Date}}
+            </div>
+          </ion-col>
+          
+            <ion-col class="tablecol1 align-text-middle">
+              <ion-item text-center style="--background: transparent;" lines="none">
+                <ion-button  (click)="onBookPlace(subject.AssId)" color="danger">
+                  <ion-icon name="cloud-upload-outline"></ion-icon>
+                </ion-button>
+                <ion-button (click)="onViewHomework(subject.AssId)" color="success">
+                  <ion-icon name="eye-outline"></ion-icon>
+                </ion-button>
+              </ion-item>
+            </ion-col>
+         
+          <ion-col class="tablecol1">
+            <div class="subclass text-danger" 
+            *ngIf="!subject.Status">
+                Pending
+              </div>
+              <div class="subclass text-success" *ngIf="subject.Status" >
+                Completed
+              </div>
+          </ion-col>
+  
+  
+        </ion-row>
+    </div>
+      </ion-card>
+    </ion-grid>
+  
+  </ion-content>

@@ -15,6 +15,9 @@ import { AuthService, AuthResponseData } from './auth.service';
 export class AuthPage implements OnInit {
   isLoading = false;
   isLogin = true;
+ 
+ type = 'password';
+ showPass = false;
 
   constructor(
     private authService: AuthService,
@@ -24,6 +27,16 @@ export class AuthPage implements OnInit {
   ) {}
 
   ngOnInit() {}
+
+  showPassword() {
+    this.showPass = !this.showPass;
+    if(this.showPass){
+      this.type = 'text';
+    } else {
+      this.type = 'password';
+    }
+ }
+ 
 
   authenticate(email: string, password: string) {
     this.isLoading = true;

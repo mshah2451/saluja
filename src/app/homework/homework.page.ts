@@ -6,6 +6,8 @@ import {HomeworkService} from './homework-service'
 import { HomeworkDetailComponent } from './homework-detail/homework-detail.component';
 import { ToastService } from '../services/toast.service';
 import * as moment from 'moment';
+import { analyzeAndValidateNgModules } from '@angular/compiler';
+import { homeworkSubjectComponent } from './homework-subject/homework.subject.component';
 
 @Component({
   selector: 'app-homework',
@@ -15,7 +17,8 @@ import * as moment from 'moment';
 export class HomeworkPage implements OnInit {
 homework:Homework;
 homeworkDetails:HomeworkDetails[];
-homeworkDetail:HomeworkDetails;
+  homeworkDetail: HomeworkDetails;
+  subjectGroupArray: Array<any>;
   constructor(private modalCtrl: ModalController,    
     private loadingCtrl: LoadingController,
     private actionSheetCtrl: ActionSheetController,
@@ -33,70 +36,61 @@ homeworkDetail:HomeworkDetails;
   }
 
   getHomeWorkDetails() { 
-    this.homeworkService.getHomeWorkById().subscribe(map=>      
+    this.subjectGroupArray = [];
+    this.homeworkService.getHomeWorkById().subscribe(map =>{
       map.forEach(element => {
         this.homeworkDetails.push
-        (
-          {
-          AssId:element.AssId,
-          AssignedBy:element.AssignedBy,
-          Date:  this.getFormatedDate(element.Date) ,
-          DownloadFileURL:element.FilePath,
-          LastUploadDate:this.getFormatedDate(element.LastSubmissionDate),
-          Status:element.Status,
-          Subject:element.Subject,
-          SubjectId:element.SubjectId
-         }
-         )
-      })
-    );
-  }
-  
-  onBookPlace(id : string) {
-    this.homeworkDetails.map(x=>{
-      if(x.AssId===id)
-      {
-        this.homeworkDetail=x;     
-      }
-     });
-     console.log(this.homeworkDetail);
-    this.openHomeworkModal('select');
+          (
+            {
+              AssId: element.AssId,
+              AssignedBy: element.AssignedBy,
+              Date: this.getFormatedDate(element.Date),
+              DownloadFileURL: element.FilePath,
+              LastUploadDate: this.getFormatedDate(element.LastSubmissionDate),
+              Status: element.Status,
+              Subject: element.Subject,
+              SubjectId: element.SubjectId
+            }
+          );
+        if (!this.subjectGroupArray.some(subject => subject.SubjectId === element.SubjectId)) {
+          this.subjectGroupArray.push({
+            Subject: element.Subject,
+            SubjectId: element.SubjectId,
+            SubjectCount: 0
+          });
+        }
+      });
+      this.subjectGroupArray= [... this.subjectGroupArray.map(subject => {
+        subject.SubjectCount = this.homeworkDetails
+          .filter(x => x.SubjectId === subject.SubjectId)
+          .length;
+        subject.Subject = subject.Subject;
+        subject.SubjectId = subject.SubjectId;
+        return subject;
+      })];
+    });
   }
 
-  onViewHomework(id : string) {
-   this.homeworkService.getHomeWorkById().subscribe(map=>      
-    map.forEach(element => {
-      if (element.AssId === id) { 
-        this.homeworkDetail = Object.assign({
-            AssId:element.AssId,
-            AssignedBy:element.AssignedBy,
-            Date:  this.getFormatedDate(element.Date) ,
-            DownloadFileURL:element.FilePath,
-            LastUploadDate:this.getFormatedDate(element.LastSubmissionDate),
-            Status:element.Status,
-            Subject:element.Subject,
-            SubjectId:element.SubjectId
-        });
-        this.openViewModal();
+  showHomeBySubject(subjectId:number) { 
+    const studentWiseSubjectArray = this.homeworkDetails.filter(x => {
+      if (x.SubjectId === subjectId) {
+        return x;
       }
-    })
-  );
-   console.log(this.homeworkDetail);
-  
+    });
+
+    this.openSubjectComp('select', studentWiseSubjectArray);
+
   }
-  
-  openHomeworkModal(mode: 'select' | 'random') {
+
+  openSubjectComp(mode: 'select' | 'random',studentWiseSubjectArray : HomeworkDetails[]) {
     
-    console.log(mode);
     this.modalCtrl
       .create({
-        component: UploadHomeworkComponent,
+        component: homeworkSubjectComponent,
         componentProps:
         {
-          selectedPlace: this.homework,
-          selectedMode: mode,
-          homework: this.homeworkDetail,
-          getHomeWorkDetails:this.getHomeWorkDetails()
+          subjects: studentWiseSubjectArray ,
+          selectedMode: mode
         }
       })
       .then(modalEl => {
@@ -107,27 +101,6 @@ homeworkDetail:HomeworkDetails;
         if (resultData.role === 'confirm') {
           this.loadingCtrl
             .create({ message: 'Homework Upload..' })
-            .then(loadingEl => {
-              loadingEl.present();
-            });
-        }
-      });
-  }
-
-  openViewModal() {    
-    this.modalCtrl
-      .create({
-        component: HomeworkDetailComponent,
-       componentProps: { homework: this.homeworkDetail}
-      })
-      .then(modalEl => {
-        modalEl.present();
-        return modalEl.onDidDismiss();
-      })
-      .then(resultData => {
-        if (resultData.role === 'confirm') {
-          this.loadingCtrl
-            .create({ message: 'Homework Upload...' })
             .then(loadingEl => {
               loadingEl.present();
             });

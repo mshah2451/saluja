@@ -10,7 +10,7 @@ import { HomeworkPage } from './homework.page';
 import { ShareableModule } from '../share/shareable/shareable.module';
 import { UploadHomeworkComponent } from './upload-homework/upload-homework.component';
 import { HomeworkDetailComponent } from './homework-detail/homework-detail.component';
-
+import { homeworkSubjectComponent } from '../homework/homework-subject/homework.subject.component'
 
 @NgModule({
   imports: [
@@ -21,7 +21,7 @@ import { HomeworkDetailComponent } from './homework-detail/homework-detail.compo
     ShareableModule
   ],
   
-  declarations: [HomeworkPage,UploadHomeworkComponent,HomeworkDetailComponent],
+  declarations: [HomeworkPage,UploadHomeworkComponent,HomeworkDetailComponent,homeworkSubjectComponent],
   entryComponents: [UploadHomeworkComponent,HomeworkDetailComponent]
 })
 export class HomeworkPageModule {}

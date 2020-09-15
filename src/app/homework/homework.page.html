@@ -1,56 +1,40 @@
 <app-header></app-header>
-
 <ion-content>
-  <ion-grid class="bggrey">
+  <ion-grid>
     <ion-row>
-      <ion-col size-md="9" offset-md="3" class="ion-text-left bg-color roundcorner">
+      <ion-col size-md="9" offset-md="3" class="ion-text-center bg-color roundcorner">
         <h1>Homework</h1>
       </ion-col>
     </ion-row>
     <ion-card>
-      <ion-row class="nameClass" justify-content-center align-items-center style='height: 100%'>
-
-
+      <ion-row class="nameClass" style='height: 100%'>
         <ion-col class="tablecol">
           <div>
-            SUBJECT
+            Subjects
           </div>
         </ion-col>
         <ion-col class="tablecol">
           <div>
-            VIEW
+            Action
           </div>
         </ion-col>
-
-
       </ion-row>
-
-      <ion-row *ngFor="let homework of homeworkDetails" class="nameClass" justify-content-center align-items-center
-        style='height: 100%'>
-
+      <ion-row *ngFor="let subject of subjectGroupArray" class="nameClass" style='height: 100%'>
+       <ion-col class="tablecol1">
+          <div class="subclass" style="font-weight: 600;">
+            {{subject?.Subject}}
+            <ion-badge color="danger dangerbadge">{{subject?.SubjectCount}}</ion-badge>
+          </div>
+        </ion-col>
         <ion-col class="tablecol1">
-          <div class="subclass {{homework.Status ? 'greendiv' : ''}}">
-            {{homework.Subject}}
-          </div>
-        </ion-col>
-        <ion-col class="tablecol1 align-text-middle">
-          <ion-item text-center style="--background: transparent;" lines="none">
-            <ion-button color="danger" margin (click)="onBookPlace(homework.AssId)">
-              <ion-icon name="cloud-upload-outline"></ion-icon>
+          <ion-item lines="none" class="viewdisp">
+            <ion-button (click)="showHomeBySubject(subject?.SubjectId)" 
+            color="primary">
+              view
             </ion-button>
-            <ion-button color="success" margin (click)="onViewHomework(homework.AssId)">
-              <ion-icon name="eye-outline"></ion-icon>
-            </ion-button>
-          </ion-item>
+           </ion-item>
         </ion-col>
-
-
       </ion-row>
-
-
-
-
     </ion-card>
   </ion-grid>
-
 </ion-content>
