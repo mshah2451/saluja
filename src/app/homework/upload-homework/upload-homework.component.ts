@@ -205,41 +205,12 @@ takepick(){
   });
   
   this.camera.getPicture(options).then((imageData) => {
-   // imageData is either a base64 encoded string or a file URI
-   // If it's base64 (DATA_URL):
-  // this.loaderService.showLoader();
   var imageFile = base64toBlob(
     imageData.replace('data:image/jpeg;base64,', ''),
     'image/jpeg'
   );
-   alert(JSON.stringify(imageData));
-   imageFile["lastModifiedDate"] = new Date();
-   imageFile["name"] = "file.jpg";
-   const url = `${BaseURL.baseURLAPI}/UploadFile`;
-   this.http.post(url,imageFile).subscribe(fileUploadResult=>{
-     alert(JSON.stringify(fileUploadResult));
-     alert("file upload ho gyi");
-    this.homeservice.UploadHomeworkDetail(new HomeworkUploadDetails(studentProfile.AdmissionId,studentProfile.ClassId,studentProfile.SectionId
-      ,this.homework.SubjectId,4,null,null,"success","file",this.homework.AssId,this.remark
-    )).subscribe(x => {
-      alert("Api ko hit chli gyi");
-      this.loaderService.hideLoader();
-      this.toastService.presentToast('Your files were successfully saved',2000);  
-      //this.recuresiveUpload(); 
-    //  this.onCancel();
-    },(err)=>{
-      alert("error in HomeworkUploadDetails");
-      alert(JSON.stringify(err));
-    })
-   },(err)=>{
-     alert("error in UploadFile");
-     
-     alert(JSON.stringify(err));
-   });
-  }, (err) => {
-      alert("Error aan gyi");
-      alert(JSON.stringify(err));
-      this.loaderService.hideLoader();
+  this.onImagePicked(imageData)
+  
   });
 }
 
