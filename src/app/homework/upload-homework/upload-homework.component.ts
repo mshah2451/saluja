@@ -51,6 +51,8 @@ image:any;
 fileTransfer:FileTransferObject; 
 remark:string="";
   @Input() homework: HomeworkDetails;
+
+  fileUploadArray: Array<any>;
  
   constructor
   (private modalCtrl: ModalController,
@@ -277,11 +279,58 @@ base64toBlob(base64Data, contentType) {
   return  data;
 }
 
+getExtensionImage(ext:string){
+let extension="";
+  switch (ext.trim()){
+    case "jpg":
+    case "png":
+    case "gif":
+        extension="/assets/hwjpg.png"
+        break;
+    case "mp3":
+    case "mp4":
+    extension="/assets/mp3.png"
+    break;
+
+    case "pdf":
+    extension="/assets/pdf.png"
+    break;
+
+  } 
+  return extension;
+
+}
+
+
 GetUploadFileName(){
   const AssId= this.homework.AssId;
-  this.homeservice.GetUploadFileName(AssId).subscribe(x=>
+  this.fileUploadArray = [];
+  this.homeservice.GetUploadFileName(AssId).subscribe(fileName=>
     {
-console.log(x);
+
+      if(fileName != null)
+      {
+        //fileUploadArray
+      const fileArray=  fileName.split(',');
+        for (let fileCount = 0; fileCount < fileArray.length; fileCount++) { 
+          let fileNameObj = fileArray[fileCount];
+          const arr=fileNameObj.split('.');
+          if(arr.length==2){
+            this.fileUploadArray.push(
+              {
+              Name:arr[0],
+              Ext : arr[1],
+              ImagePick:this.getExtensionImage(arr[1]),
+              FullName:fileNameObj
+            }
+            );
+
+          }
+        }
+
+        this.fileUploadArray= [...this.fileUploadArray]
+        
+      }
     });
 }
 
