@@ -23,7 +23,7 @@
        <ion-col class="tablecol1">
           <div class="subclass" style="font-weight: 600;">
             {{subject?.Subject}}
-            <ion-badge color="danger dangerbadge">{{subject?.SubjectCount}}</ion-badge>
+            <ion-badge *ngIf="subject?.SubjectCount > 0" color="danger dangerbadge">{{subject?.SubjectCount}}</ion-badge>
           </div>
         </ion-col>
         <ion-col class="tablecol1">

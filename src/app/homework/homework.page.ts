@@ -62,7 +62,7 @@ homeworkDetails:HomeworkDetails[];
       });
       this.subjectGroupArray= [... this.subjectGroupArray.map(subject => {
         subject.SubjectCount = this.homeworkDetails
-          .filter(x => x.SubjectId === subject.SubjectId)
+          .filter(x => x.SubjectId === subject.SubjectId && (x.Status).toString() === 'false')
           .length;
         subject.Subject = subject.Subject;
         subject.SubjectId = subject.SubjectId;

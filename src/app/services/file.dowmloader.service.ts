@@ -26,7 +26,6 @@ export class FileDowmloaderService {
           .then((location: string) => alert(JSON.stringify(location) ))
           .catch((error: any) =>{
             console.error(error);
-            alert(JSON.stringify(error) )
           } );
   }
 }

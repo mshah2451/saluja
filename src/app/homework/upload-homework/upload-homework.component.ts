@@ -109,7 +109,7 @@ remark:string="";
           );
       })
       .catch(error => {
-        alert(JSON.stringify(error));        
+            
           //something wrong with getting file infomation
       });
 }
@@ -227,24 +227,23 @@ onImagePicked(imageData: string | File) {
         imageData.replace('data:image/jpeg;base64,', ''),
         'image/jpeg'
       );
-      alert('base64toBlob finish');
-      alert(JSON.stringify(imageFile));
+     
       homeservice.uploadImage(imageFile).subscribe(x=>{
         console.log(JSON.stringify(x))
-        alert(JSON.stringify(x));
+      
         
         homeservice.UploadHomeworkDetail(new HomeworkUploadDetails(studentProfile.AdmissionId,studentProfile.ClassId,studentProfile.SectionId
           ,this.homework.SubjectId,4,null,null,JSON.parse(x.response)[0],"file",this.homework.AssId,this.remark
           )).subscribe(x=>{
           console.log(JSON.stringify(x))
-          alert(JSON.stringify(x));
+         
           this.loaderService.hideLoader();
           this.toastService.presentToast('Your files were successfully saved',2000);
           this.router.navigateByUrl('/homework');
         })
       })
     } catch (error) {
-      alert(JSON.stringify(error));
+     
     }
     finally{
       this.loaderService.hideLoader();
@@ -254,7 +253,7 @@ onImagePicked(imageData: string | File) {
 }
 
 base64toBlob(base64Data, contentType) {
-  alert('base64toBlob starting');
+ 
   contentType = contentType || '';
   const sliceSize = 1024;
   const byteCharacters = window.atob(base64Data);
@@ -273,7 +272,6 @@ base64toBlob(base64Data, contentType) {
     byteArrays[sliceIndex] = new Uint8Array(bytes);
   }
   const data=new Blob(byteArrays, { type: contentType });
-  alert(data)
   return  data;
 }
 
