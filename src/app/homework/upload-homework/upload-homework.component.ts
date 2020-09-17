@@ -134,7 +134,7 @@ async uploadFile(fileMeta) {
   const alertTest = await this.alertCtrl.create({  
     header: 'Do you want to submit?',  
     buttons: [ { 
-      text: 'Submit',  
+      text: 'Yes',  
       handler:async data => {  
         this.loaderService.showLoader();
         const fileTransfer: FileTransferObject = this.transfer.create();
@@ -172,9 +172,9 @@ finally{
  async recuresiveUpload() { 
 
     const alertTest = await this.alertCtrl.create({  
-      header: 'If there are any pending files, You can hit submit',  
+      header: 'If there are any pending files, You can hit Yes',  
       buttons: [ { 
-        text: 'Submit',  
+        text: 'Yes',  
         handler:async data => {  
           this.selectAFile();
         }   
@@ -223,18 +223,27 @@ onImagePicked(imageData: string | File) {
         imageData.replace('data:image/jpeg;base64,', ''),
         'image/jpeg'
       );
-      const filename=Math.floor(Math.random() * 100000) + 1; 
-       homeservice.uploadImage(imageFile).subscribe(x=>{
-        console.log(JSON.stringify(x))
-        homeservice.UploadHomeworkDetail(new HomeworkUploadDetails(studentProfile.AdmissionId,studentProfile.ClassId,studentProfile.SectionId
-          ,this.homework.SubjectId,4,null,null,JSON.parse(x.response)[0],filename.toString(),this.homework.AssId,this.remark
-          )).subscribe(x=>{
-          console.log(JSON.stringify(x));
-          this.loaderService.hideLoader();
-          this.toastService.presentToast('Your files were successfully saved',2000);
-          this.router.navigateByUrl('/homework');
-        })
+      const filename=Math.floor(Math.random() * 100000) + 1+'.jpg'; 
+      homeservice.uploadImage(imageFile,filename).subscribe(fileUploadResult=>{
+      homeservice.UploadHomeworkDetail(new HomeworkUploadDetails(studentProfile.AdmissionId,studentProfile.ClassId,studentProfile.SectionId
+        ,this.homework.SubjectId,4,null,null,fileUploadResult[0],filename.toString(),this.homework.AssId,this.remark
+        )).subscribe(x=>{
+        this.loaderService.hideLoader();
+        this.toastService.presentToast('Your files were successfully saved',2000);  
+     
       })
+    })
+      //  homeservice.uploadImage(imageFile,filename).subscribe(x=>{
+      //   console.log(JSON.stringify(x))
+      //   homeservice.UploadHomeworkDetail(new HomeworkUploadDetails(studentProfile.AdmissionId,studentProfile.ClassId,studentProfile.SectionId
+      //     ,this.homework.SubjectId,4,null,null,JSON.parse(x.response)[0],filename.toString(),this.homework.AssId,this.remark
+      //     )).subscribe(x=>{
+      //     console.log(JSON.stringify(x));
+      //     this.loaderService.hideLoader();
+      //     this.toastService.presentToast('Your files were successfully saved',2000);
+      //     this.router.navigateByUrl('/homework');
+      //   })
+      // })
     } catch (error) {
      
     }

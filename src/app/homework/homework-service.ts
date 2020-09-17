@@ -56,9 +56,9 @@ export class HomeworkService implements OnDestroy {
    
   }
 
-  uploadImage(image: File): Observable<any> {
+  uploadImage(image: File,filename:string): Observable<any> {
     const uploadData = new FormData();
-    uploadData.append('image', image,"imageFilename.jpg");
+    uploadData.append('image', image,filename);
      return  this.http.post<{ imageUrl: string; imagePath: string }>(
       `${BaseURL.baseURLAPI}UploadFile`,
       uploadData
