@@ -51,7 +51,7 @@ image:any;
 fileTransfer:FileTransferObject; 
 remark:string="";
   @Input() homework: HomeworkDetails;
-  @Input() getHomeWorkDetails : Function;
+ 
   constructor
   (private modalCtrl: ModalController,
   private transfer:FileTransfer,
@@ -70,6 +70,7 @@ remark:string="";
   ) { }
   form: FormGroup;
   ngOnInit() {
+    this.GetUploadFileName();
   }
   
   onLocationPicked() {
@@ -77,8 +78,6 @@ remark:string="";
 
   onCancel() {
     this.modalCtrl.dismiss(null, 'cancel');
-    this.getHomeWorkDetails();
-    window.location.assign('/homework');
   }
   getFileInfo(): Promise<any> {
     return this.filechooser.open().then(fileURI => {
@@ -267,6 +266,14 @@ base64toBlob(base64Data, contentType) {
   }
   const data=new Blob(byteArrays, { type: contentType });
   return  data;
+}
+
+GetUploadFileName(){
+  const AssId= this.homework.AssId;
+  this.homeservice.GetUploadFileName(AssId).subscribe(x=>
+    {
+console.log(x);
+    });
 }
 
 }

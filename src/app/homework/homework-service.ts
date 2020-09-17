@@ -75,5 +75,19 @@ export class HomeworkService implements OnDestroy {
     };
   }
 
+  GetUploadFileName(AssId:string): Observable<any> {
+    let userId = '';
+this.authService.userId.subscribe(x=>userId=x);
+    const url = `${BaseURL.baseURLAPI}StudentUploadHW`;
+    // this.http.post<any>(url,JSON.stringify(homeworkUploadDetails));
+
+    
+     return this.http
+     .get<any>(
+       `${BaseURL.baseURLAPI}GetUploadFileName?AssId=${AssId}&UserId=${userId}`)
+     
+ 
+  }
+
   
 }
