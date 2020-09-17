@@ -5,6 +5,7 @@ import { HomeworkService } from '../homework-service';
 import * as moment from 'moment';
 import { UploadHomeworkComponent } from '../upload-homework/upload-homework.component';
 import { HomeworkDetailComponent } from '../homework-detail/homework-detail.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'homework-subject',
@@ -20,7 +21,8 @@ homeworkDetails:HomeworkDetails[];
   constructor(private modalCtrl: ModalController,    
     private loadingCtrl: LoadingController,
     private actionSheetCtrl: ActionSheetController,
-    private homeworkService:HomeworkService
+    private homeworkService:HomeworkService,
+    private router:Router
     ) { }
 
   ngOnInit() { 
@@ -112,6 +114,10 @@ homeworkDetails:HomeworkDetails[];
   
   onCancel() {
     this.modalCtrl.dismiss(null, 'cancel');
+   setTimeout(()=>{
+    this.router.navigateByUrl('/homework' );
+   },500);
+   this.router.navigateByUrl('/dashboard' );
   }
 
 }

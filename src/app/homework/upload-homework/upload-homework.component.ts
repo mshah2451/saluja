@@ -78,6 +78,7 @@ remark:string="";
   onCancel() {
     this.modalCtrl.dismiss(null, 'cancel');
     this.getHomeWorkDetails();
+    window.location.assign('/homework');
   }
   getFileInfo(): Promise<any> {
     return this.filechooser.open().then(fileURI => {
@@ -142,12 +143,11 @@ async uploadFile(fileMeta) {
 try{
 
         homeworkService.UploadHomeworkDetail(new HomeworkUploadDetails(studentProfile.AdmissionId,studentProfile.ClassId,studentProfile.SectionId
-          ,this.homework.SubjectId,4,null,null,JSON.parse(fileUploadResult.response)[0],"file",this.homework.AssId,this.remark
+          ,this.homework.SubjectId,4,null,null,JSON.parse(fileUploadResult.response)[0],fileMeta.fileNameFromPath,this.homework.AssId,this.remark
           )).subscribe(x=>{
           this.loaderService.hideLoader();
           this.toastService.presentToast('Your files were successfully saved',2000);  
           this.recuresiveUpload(); 
-        //  this.onCancel();
         })
      
 } catch(err){
@@ -163,7 +163,6 @@ finally{
       text: 'Cancel',  
       handler: data => {  
         this.onCancel();
-
        return
       }  
     } ]  
@@ -179,8 +178,7 @@ finally{
         text: 'Submit',  
         handler:async data => {  
           this.selectAFile();
-        } 
-      
+        }   
       }, {
         text: 'Cancel',  
         handler: data => {  
@@ -210,7 +208,6 @@ takepick(){
     'image/jpeg'
   );
   this.onImagePicked(imageData)
-  
   });
 }
 
@@ -227,16 +224,13 @@ onImagePicked(imageData: string | File) {
         imageData.replace('data:image/jpeg;base64,', ''),
         'image/jpeg'
       );
-     
-      homeservice.uploadImage(imageFile).subscribe(x=>{
+      const filename=Math.floor(Math.random() * 100000) + 1; 
+       homeservice.uploadImage(imageFile).subscribe(x=>{
         console.log(JSON.stringify(x))
-      
-        
         homeservice.UploadHomeworkDetail(new HomeworkUploadDetails(studentProfile.AdmissionId,studentProfile.ClassId,studentProfile.SectionId
-          ,this.homework.SubjectId,4,null,null,JSON.parse(x.response)[0],"file",this.homework.AssId,this.remark
+          ,this.homework.SubjectId,4,null,null,JSON.parse(x.response)[0],filename.toString(),this.homework.AssId,this.remark
           )).subscribe(x=>{
-          console.log(JSON.stringify(x))
-         
+          console.log(JSON.stringify(x));
           this.loaderService.hideLoader();
           this.toastService.presentToast('Your files were successfully saved',2000);
           this.router.navigateByUrl('/homework');
