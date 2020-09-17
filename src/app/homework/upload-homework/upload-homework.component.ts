@@ -49,7 +49,7 @@ export class UploadHomeworkComponent implements OnInit {
   option: FileUploadOptions;
 image:any;
 fileTransfer:FileTransferObject; 
-remark:string="test";
+remark:string="";
   @Input() homework: HomeworkDetails;
 
   fileUploadArray: Array<any>;
