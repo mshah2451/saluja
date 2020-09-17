@@ -18,6 +18,7 @@
           <div class="lineht">
             Homework ID : <br> <span class="liblue">{{homework.AssId}}</span>
           </div>
+          {{remark}}
         </ion-col>
         
         
@@ -28,7 +29,7 @@
         <ion-col size-sm="6" offset-sm="3">
           <ion-item>
             <ion-label position="floating">Remark</ion-label>
-            <ion-textarea  name="remark" [ngModel]="remark" ></ion-textarea>
+            <ion-textarea  name="remark" [(ngModel)]="remark" ></ion-textarea>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -40,47 +41,15 @@
         </ion-col>
        
       </ion-row>
-      <ion-row>
+      <ion-row *ngFor="let fileName of fileUploadArray">
       
         <ion-col size="3">
         
-          <img src="/assets/pdf.png" width="50">
+          <img [src]="fileName.ImagePick" width="50">
         
         </ion-col>
         <ion-col size="7">
-          <p>mathshomework1.pdf</p>
-        </ion-col>
-        <ion-col size="2">
-          <span class="delpos"><ion-icon name="trash" class="text-danger"></ion-icon></span>
-        </ion-col>
-      
-      </ion-row>
-
-      <ion-row>
-      
-        <ion-col size="3">
-        
-          <img src="/assets/hwjpg.png" width="50">
-        
-        </ion-col>
-        <ion-col size="7">
-          <p>mathshomework2.jpg</p>
-        </ion-col>
-        <ion-col size="2">
-          <span class="delpos"><ion-icon name="trash" class="text-danger"></ion-icon></span>
-        </ion-col>
-      
-      </ion-row>
-
-      <ion-row>
-      
-        <ion-col size="3">
-        
-          <img src="/assets/mp3.png" width="50">
-        
-        </ion-col>
-        <ion-col size="7">
-          <p>mathshomework3.mp3</p>
+          <p>{{fileName.FullName}}</p>
         </ion-col>
         <ion-col size="2">
           <span class="delpos"><ion-icon name="trash" class="text-danger"></ion-icon></span>
