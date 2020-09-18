@@ -17,6 +17,7 @@ import {ToastService} from '../../services/toast.service';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { HttpClient } from '@angular/common/http';
 import { error } from 'protractor';
+import { SharedServiceService } from 'src/app/services/SharedService.service';
 function base64toBlob(base64Data, contentType) {
   contentType = contentType || '';
   const sliceSize = 1024;
@@ -68,7 +69,8 @@ remark:string="";
   private router:Router,
   private toastService:ToastService,
   private camera: Camera,
-  private http:HttpClient
+  private http:HttpClient,
+    private shareService:SharedServiceService
   ) { }
   form: FormGroup;
   ngOnInit() {
@@ -149,6 +151,7 @@ try{
           this.loaderService.hideLoader();
           this.toastService.presentToast('Your files were successfully saved',2000);  
           this.recuresiveUpload(); 
+          this.shareService.onMainEvent.emit(this.homework.AssId);
         })
      
 } catch(err){
@@ -232,7 +235,7 @@ onImagePicked(imageData: string | File) {
         )).subscribe(x=>{
         this.loaderService.hideLoader();
         this.toastService.presentToast('Your files were successfully saved',2000);  
-     
+     this.shareService.onMainEvent.emit(this.homework.AssId);
       })
     })
       //  homeservice.uploadImage(imageFile,filename).subscribe(x=>{

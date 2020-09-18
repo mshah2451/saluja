@@ -6,6 +6,7 @@ import * as moment from 'moment';
 import { UploadHomeworkComponent } from '../upload-homework/upload-homework.component';
 import { HomeworkDetailComponent } from '../homework-detail/homework-detail.component';
 import { Router } from '@angular/router';
+import { SharedServiceService } from 'src/app/services/SharedService.service';
 
 @Component({
   selector: 'homework-subject',
@@ -22,10 +23,17 @@ homeworkDetails:HomeworkDetails[];
     private loadingCtrl: LoadingController,
     private actionSheetCtrl: ActionSheetController,
     private homeworkService:HomeworkService,
-    private router:Router
+    private router:Router,
+    private shareService:SharedServiceService
     ) { }
 
   ngOnInit() { 
+    this.shareService.onMainEvent.subscribe(
+      (id) => {
+        this.subjects.filter(x=>x.AssId==id)[0].Status="Complete";
+  
+      }
+   );
   }
 
   onBookPlace(id : string) {
