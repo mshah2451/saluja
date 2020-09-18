@@ -54,6 +54,8 @@ remark:string="";
   @Input() homework: HomeworkDetails;
 
   fileUploadArray: Array<any>;
+  recursiveCount=1;
+  uploadbuttonDisable=false;
  
   constructor
   (private modalCtrl: ModalController,
@@ -145,12 +147,18 @@ async uploadFile(fileMeta) {
         const fileUploadResult = await fileTransfer.upload(fileMeta.nativeURL, `${BaseURL.baseURLAPI}UploadFile`, options);
 try{
 
+        if( this.recursiveCount > 1){
+          this.remark="";
+        }
+
         homeworkService.UploadHomeworkDetail(new HomeworkUploadDetails(studentProfile.AdmissionId,studentProfile.ClassId,studentProfile.SectionId
           ,this.homework.SubjectId,4,null,null,JSON.parse(fileUploadResult.response)[0],fileMeta.fileNameFromPath,this.homework.AssId,this.remark
           )).subscribe(x=>{
           this.loaderService.hideLoader();
-          this.toastService.presentToast('Your files were successfully saved',2000);  
-          this.recuresiveUpload(); 
+          this.toastService.presentToast('Your files were successfully saved',2000); 
+           if(this.recursiveCount <= 3){
+            this.recuresiveUpload(); 
+           }
           this.shareService.onMainEvent.emit(this.homework.AssId);
         })
      
@@ -166,7 +174,7 @@ finally{
     }, {
       text: 'Cancel',  
       handler: data => {  
-        this.onCancel();
+     //   this.onCancel();
        return
       }  
     } ]  
@@ -175,7 +183,7 @@ finally{
 }
 
  async recuresiveUpload() { 
-
+    this.recursiveCount=this.recursiveCount+1;
     const alertTest = await this.alertCtrl.create({  
       header: 'If there are any pending files, You can hit Yes',  
       buttons: [ { 
@@ -186,7 +194,7 @@ finally{
       }, {
         text: 'Cancel',  
         handler: data => {  
-          this.onCancel();
+         // this.onCancel();
           return;
         }  
       } ]  
@@ -235,20 +243,9 @@ onImagePicked(imageData: string | File) {
         )).subscribe(x=>{
         this.loaderService.hideLoader();
         this.toastService.presentToast('Your files were successfully saved',2000);  
-     this.shareService.onMainEvent.emit(this.homework.AssId);
+        this.shareService.onMainEvent.emit(this.homework.AssId);
       })
     })
-      //  homeservice.uploadImage(imageFile,filename).subscribe(x=>{
-      //   console.log(JSON.stringify(x))
-      //   homeservice.UploadHomeworkDetail(new HomeworkUploadDetails(studentProfile.AdmissionId,studentProfile.ClassId,studentProfile.SectionId
-      //     ,this.homework.SubjectId,4,null,null,JSON.parse(x.response)[0],filename.toString(),this.homework.AssId,this.remark
-      //     )).subscribe(x=>{
-      //     console.log(JSON.stringify(x));
-      //     this.loaderService.hideLoader();
-      //     this.toastService.presentToast('Your files were successfully saved',2000);
-      //     this.router.navigateByUrl('/homework');
-      //   })
-      // })
     } catch (error) {
      
     }
@@ -284,11 +281,11 @@ base64toBlob(base64Data, contentType) {
 
 getExtensionImage(ext:string){
 let extension="";
-  switch (ext.trim()){
+  switch (ext.trim().toLowerCase()){
     case "jpg":
     case "png":
     case "gif":
-      case "jpeg":
+    case "jpeg":
         extension="/assets/hwjpg.png"
         break;
     case "mp3":
@@ -299,6 +296,10 @@ let extension="";
     case "pdf":
     extension="/assets/pdf.png"
     break;
+
+    default:
+      ext="/assets/hwjpg.png";
+
 
   } 
   return extension;
@@ -318,6 +319,9 @@ GetUploadFileName(){
       const fileArray=  fileName.split(',');
         for (let fileCount = 0; fileCount < fileArray.length; fileCount++) { 
           let fileNameObj = fileArray[fileCount];
+          if(fileCount===2){
+           this.uploadbuttonDisable=true;
+          }
           const arr=fileNameObj.split('.');
           if(arr.length==2){
             this.fileUploadArray.push(
