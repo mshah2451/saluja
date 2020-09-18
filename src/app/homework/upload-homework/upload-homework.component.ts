@@ -288,6 +288,7 @@ let extension="";
     case "jpg":
     case "png":
     case "gif":
+      case "jpeg":
         extension="/assets/hwjpg.png"
         break;
     case "mp3":
