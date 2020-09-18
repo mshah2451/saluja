@@ -284,10 +284,11 @@ base64toBlob(base64Data, contentType) {
 
 getExtensionImage(ext:string){
 let extension="";
-  switch (ext.trim()){
+  switch (ext.trim().toLowerCase()){
     case "jpg":
     case "png":
     case "gif":
+    case "jpeg":
         extension="/assets/hwjpg.png"
         break;
     case "mp3":
@@ -298,6 +299,10 @@ let extension="";
     case "pdf":
     extension="/assets/pdf.png"
     break;
+
+    default:
+      ext="/assets/hwjpg.png";
+
 
   } 
   return extension;

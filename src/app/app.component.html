@@ -3,46 +3,46 @@
 
     <ion-content>
       <ion-list>
-        <ion-menu-toggle style="background-color: blue;">
-          <ion-item lines="none" class="listItBg" routerLink="/dashboard">
-            <ion-icon name="business" slot="start"  [style.color]="'#EF3B51'"></ion-icon>
-            <ion-label>Dashboard</ion-label>
+        <ion-menu-toggle  style="background-color: blue;">
+          <ion-item (click)="updateActiveRoute('dashboard')" lines="none" class="listItBg" routerLink="/dashboard">
+            <ion-icon [style.color]="activatedClass.dashboard ? '#EF3B51' : '' " name="business" slot="start" ></ion-icon>
+            <ion-label [style.color]="activatedClass.dashboard ? '#EF3B51' : '' ">Dashboard</ion-label>
           </ion-item>
         </ion-menu-toggle>
         <ion-menu-toggle>
-          <ion-item lines="none"   class="listItBg"  [style.color]="'#EF3B51'" routerLink="/homework">
-            <ion-icon name="book-outline" slot="start"></ion-icon>
-            <ion-label>HomeWork</ion-label>
+          <ion-item lines="none" (click)="updateActiveRoute('homework')"  class="listItBg" routerLink="/homework">
+            <ion-icon  [style.color]="activatedClass.homework ? '#EF3B51' : '' "  name="book-outline" slot="start"></ion-icon>
+            <ion-label  [style.color]="activatedClass.homework ? '#EF3B51' : '' " >HomeWork</ion-label>
           </ion-item>
         </ion-menu-toggle>
         <ion-menu-toggle>
-          <ion-item lines="none" routerLink="/attendence">
-            <ion-icon name="calendar-outline" slot="start"></ion-icon>
-            <ion-label>Attendance</ion-label>
+          <ion-item lines="none" (click)="updateActiveRoute('attendance')" routerLink="/attendence">
+            <ion-icon [style.color]="activatedClass.attendance ? '#EF3B51' : '' " name="calendar-outline" slot="start"></ion-icon>
+            <ion-label [style.color]="activatedClass.attendance ? '#EF3B51' : '' ">Attendance</ion-label>
           </ion-item>
         </ion-menu-toggle>
         <ion-menu-toggle>
-          <ion-item lines="none" routerLink="/homework">
-            <ion-icon name="stats-chart-outline" slot="start"></ion-icon>
-            <ion-label>Report Card</ion-label>
+          <ion-item lines="none" (click)="updateActiveRoute('reportCard')" routerLink="/homework">
+            <ion-icon [style.color]="activatedClass.reportCard ? '#EF3B51' : '' " name="stats-chart-outline" slot="start"></ion-icon>
+            <ion-label [style.color]="activatedClass.reportCard ? '#EF3B51' : '' "> Report Card</ion-label>
           </ion-item>
         </ion-menu-toggle>
         <ion-menu-toggle>
-          <ion-item lines="none" routerLink="/homework">
-            <ion-icon name="notifications-outline" slot="start"></ion-icon>
-            <ion-label>Notice</ion-label>
+          <ion-item lines="none" (click)="updateActiveRoute('notice')" routerLink="/homework">
+            <ion-icon [style.color]="activatedClass.notice ? '#EF3B51' : '' " name="notifications-outline" slot="start"></ion-icon>
+            <ion-label [style.color]="activatedClass.notice ? '#EF3B51' : '' ">Notice</ion-label>
           </ion-item>
         </ion-menu-toggle>
         <ion-menu-toggle>
-          <ion-item lines="none" routerLink="/homework">
-            <ion-icon name="help-outline" slot="start"></ion-icon>          
-              <ion-label>Queries</ion-label>
+          <ion-item lines="none" (click)="updateActiveRoute('queries')" routerLink="/homework">
+            <ion-icon [style.color]="activatedClass.queries ? '#EF3B51' : '' " name="help-outline" slot="start"></ion-icon>          
+              <ion-label [style.color]="activatedClass.queries ? '#EF3B51' : '' ">Queries</ion-label>
           </ion-item>
         </ion-menu-toggle>
         <ion-menu-toggle>
-          <ion-item lines="none" routerLink="/profile">
-            <ion-icon name="person-circle-outline" slot="start"></ion-icon>          
-              <ion-label>My Profile</ion-label>
+          <ion-item lines="none" (click)="updateActiveRoute('myProfile')" routerLink="/profile">
+            <ion-icon [style.color]="activatedClass.myProfile ? '#EF3B51' : '' " name="person-circle-outline" slot="start"></ion-icon>          
+              <ion-label [style.color]="activatedClass.myProfile ? '#EF3B51' : '' ">My Profile</ion-label>
           </ion-item>
         </ion-menu-toggle>
         <ion-menu-toggle>

@@ -15,12 +15,30 @@ export class AppComponent implements OnInit, OnDestroy {
   private authSub: Subscription;
   private previousAuthState = false;
 
+  activatedClass={
+    dashboard:true,
+    homework:false,
+    attendance:false,
+    reportCard:false,
+    notice:false,
+    queries:false,
+    myProfile:false
+  };
+
+
   constructor(
     private platform: Platform,
     private authService: AuthService,
     private router: Router
   ) {
     this.initializeApp();
+  }
+
+  updateActiveRoute(key:string){
+    Object.keys(this.activatedClass).map(keyObj=>{
+        this.activatedClass[keyObj]=false;
+    });
+    this.activatedClass[key]=true;
   }
 
   initializeApp() {
