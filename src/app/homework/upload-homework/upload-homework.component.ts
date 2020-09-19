@@ -187,7 +187,7 @@ finally{
  async recuresiveUpload() { 
     this.recursiveCount=this.recursiveCount+1;
     const alertTest = await this.alertCtrl.create({  
-      header: 'Do you want submit pending files without remark, You can hit Yes',  
+      header: 'Do you want to submit more files without a remark? Click Yes or else Cancel.',  
       buttons: [ { 
         text: 'Yes',  
         handler:async data => {  

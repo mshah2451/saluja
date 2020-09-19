@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">salujaschoolapp</string>
-    <string name="title_activity_main">salujaschoolapp</string>
+    <string name="app_name">saluja</string>
+    <string name="title_activity_main">saluja</string>
     <string name="package_name">com.salujagoldschool.app</string>
     <string name="custom_url_scheme">com.salujagoldschool.app</string>
 </resources>

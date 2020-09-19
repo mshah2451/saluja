@@ -1,7 +1,8 @@
 {
   "appId": "com.salujagoldschool.app",
-  "appName": "salujaschoolapp",
+  "appName": "saluja",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www"
+
 }
