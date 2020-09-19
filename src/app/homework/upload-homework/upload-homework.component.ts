@@ -156,9 +156,9 @@ try{
           )).subscribe(x=>{
           this.loaderService.hideLoader();
           this.toastService.presentToast('Your files were successfully saved',2000); 
-           if(this.recursiveCount <= 3){
+          // if(this.recursiveCount <= 3){
             this.recuresiveUpload(); 
-           }
+          //}
           this.shareService.onMainEvent.emit(this.homework.AssId);
         })
      
@@ -175,6 +175,7 @@ finally{
       text: 'Cancel',  
       handler: data => {  
      //   this.onCancel();
+     this.recursiveCount=0;
        return
       }  
     } ]  
