@@ -100,10 +100,10 @@ export class AuthService implements OnDestroy {
     );
   }
 
-  signup(UserId: string, password: string) {
+  ResetPassword(UserId: string, password: string) {
     return this.http
       .post<AuthResponseData>(
-        `${BaseURL.baseURLAPI}login`,
+        `${BaseURL.baseURLAPI}ForgotPasswordApp`,
         { UserId: UserId, password: password, returnSecureToken: true }
       )
       .pipe(tap(this.setUserData.bind(this)));

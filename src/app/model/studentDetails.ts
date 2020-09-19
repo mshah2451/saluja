@@ -12,5 +12,6 @@ export interface studentDetails
     Adress: string;
     Mobile: string;
     Email: string;
-    photo: string
+    photo: string;
+    FatherName:string
 }

@@ -48,20 +48,31 @@ export class AuthPage implements OnInit {
         if (this.isLogin) {
           authObs = this.authService.login(email, password);
         } else {
-          authObs = this.authService.signup(email, password);
+          authObs = this.authService.ResetPassword(email, password);
         }
         authObs.subscribe(
           resData => {
-            console.log(resData);
             this.isLoading = false;
             loadingEl.dismiss();
+            if (this.isLogin)
+            {
             this.router.navigateByUrl('/dashboard');
+            }
+            else{
+              this.showAlert("Password has been Update");
+              this.isLogin=true;
+            }
           },
           errRes => {
             loadingEl.dismiss();
             // const code = errRes.error.error.message;
             const code = errRes;
-            let message = 'Could not sign you up, please try again.';
+            let message ="";
+            if (this.isLogin){
+             message = 'Could not Login, please Check Userid or Password.';
+            }else{
+              message= 'Could not ResetPassword, please Check Admission id.';
+            }
             if (code === 'EMAIL_EXISTS') {
               message = 'This email address exists already!';
             } else if (code === 'EMAIL_NOT_FOUND') {
