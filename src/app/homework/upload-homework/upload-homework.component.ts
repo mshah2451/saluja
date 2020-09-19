@@ -157,6 +157,7 @@ try{
           this.loaderService.hideLoader();
           this.toastService.presentToast('Your files were successfully saved',2000); 
           // if(this.recursiveCount <= 3){
+            this.GetUploadFileName();
             this.recuresiveUpload(); 
           //}
           this.shareService.onMainEvent.emit(this.homework.AssId);
@@ -225,6 +226,7 @@ takepick(){
 }
 
 onImagePicked(imageData: string | File) {
+  this.loaderService.showLoader();
   let imageFile;
   const homeservice=this.homeservice;
   let studentProfile:studentDetails;
@@ -242,13 +244,15 @@ onImagePicked(imageData: string | File) {
       homeservice.UploadHomeworkDetail(new HomeworkUploadDetails(studentProfile.AdmissionId,studentProfile.ClassId,studentProfile.SectionId
         ,this.homework.SubjectId,4,null,null,fileUploadResult[0],filename.toString(),this.homework.AssId,this.remark
         )).subscribe(x=>{
-        this.loaderService.hideLoader();
+      
         this.toastService.presentToast('Your files were successfully saved',2000);  
         this.shareService.onMainEvent.emit(this.homework.AssId);
+        this.GetUploadFileName();
+        this.loaderService.hideLoader();
       })
     })
     } catch (error) {
-     
+      this.loaderService.hideLoader();
     }
     finally{
       this.loaderService.hideLoader();
