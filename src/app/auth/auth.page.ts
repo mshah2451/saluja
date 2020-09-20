@@ -107,6 +107,9 @@ export class AuthPage implements OnInit {
     this.authenticate(email, password);
     form.reset();
   }
+  SentOtp(){
+    
+  }
 
   private showAlert(message: string,header:string ) {
     this.alertCtrl

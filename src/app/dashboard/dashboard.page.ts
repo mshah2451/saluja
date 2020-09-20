@@ -14,7 +14,11 @@ export class DashboardPage implements OnInit,OnDestroy,AfterViewInit  {
   isLoading:boolean=false;
   studentDetail:studentDetails;
   constructor(private dashboardService:DashboardService,     private router: Router, public alertCtrl: AlertController,private loaderService:LoaderService,private platform: Platform) { 
-   
+    this.backButtonSubscription = this.platform.backButton.subscribeWithPriority(666666, () => {
+      if(this.constructor.name === 'DashboardPage'){
+      this.LogOutAlert();
+       }
+     });
   }
 
   ngOnInit() {
@@ -23,9 +27,7 @@ export class DashboardPage implements OnInit,OnDestroy,AfterViewInit  {
       this.studentDetail=studentDetail;
       this.loaderService.hideLoader();
     });
-    this.backButtonSubscription = this.platform.backButton.subscribeWithPriority(0, () => {
-     this.LogOutAlert();
-    });
+   
     
   }
   ngAfterViewInit() {
