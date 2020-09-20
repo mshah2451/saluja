@@ -78,7 +78,7 @@ export class AuthPage implements OnInit {
             if (this.isLogin){
              message = 'Could not Login, please Check Userid or Password.';
             }else{
-              message= 'Could not ResetPassword, please Check User id or Invalid login.';
+              message= 'Could not ResetPassword, please Check User id or Invalid OTP.';
             }
             if (code === 'EMAIL_EXISTS') {
               message = 'This email address exists already!';
