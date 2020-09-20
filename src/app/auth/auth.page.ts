@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { LoadingController, AlertController, Platform } from '@ionic/angular';
 import { Observable } from 'rxjs';
-
 import { AuthService, AuthResponseData } from './auth.service';
 
 
@@ -45,7 +44,7 @@ export class AuthPage implements OnInit {
  }
  
 
-  authenticate(email: string, password: string) {
+  authenticate(email: string, password: string,otp:string) {
     this.isLoading = true;
     this.loadingCtrl
       .create({ keyboardClose: true, message: 'Logging in...' })
@@ -55,7 +54,7 @@ export class AuthPage implements OnInit {
         if (this.isLogin) {
           authObs = this.authService.login(email, password);
         } else {
-          authObs = this.authService.ResetPassword(email, password);
+          authObs = this.authService.ResetPassword(email, password,otp);
         }
         authObs.subscribe(
           resData => {
@@ -79,7 +78,7 @@ export class AuthPage implements OnInit {
             if (this.isLogin){
              message = 'Could not Login, please Check Userid or Password.';
             }else{
-              message= 'Could not ResetPassword, please Check Admission id.';
+              message= 'Could not ResetPassword, please Check User id or Invalid login.';
             }
             if (code === 'EMAIL_EXISTS') {
               message = 'This email address exists already!';
@@ -104,11 +103,20 @@ export class AuthPage implements OnInit {
     // }
     const email = form.value.email;
     const password = form.value.password;
-    this.authenticate(email, password);
+    const otp = form.value.otp;
+    this.authenticate(email, password,otp);
     form.reset();
   }
-  SentOtp(){
-    
+
+  SentOtp(userId:any){
+    this.authService.sendOtp(userId).subscribe(x=>{
+      console.log(`success`)
+      this.showAlert('OTP successfully has sent on your registered mobile number','OTP');
+      console.log(x)
+    },err=>{
+      this.showAlert('OTP not sent. Invalid user id','OTP');
+      console.log(err)
+    })
   }
 
   private showAlert(message: string,header:string ) {

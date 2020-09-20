@@ -100,13 +100,13 @@ export class AuthService implements OnDestroy {
     );
   }
 
-  ResetPassword(UserId: string, password: string) {
+  ResetPassword(UserId: string, password: string,token:string) {
     return this.http
       .post<AuthResponseData>(
-        `${BaseURL.baseURLAPI}ForgotPasswordApp`,
-        { UserId: UserId, password: password, returnSecureToken: true }
+        `${BaseURL.baseURLAPI}ResetPassword`,
+        { UserId: UserId, Password: password, Repassword: password , Token: token}
       )
-      .pipe(tap(this.setUserData.bind(this)));
+      .pipe(tap(value => console.log(value)));
   }
 
   login(UserId: string, password: string) {
@@ -116,6 +116,13 @@ export class AuthService implements OnDestroy {
         { UserId: UserId, password: password, returnSecureToken: true }
       )
       .pipe(tap(this.setUserData.bind(this)));
+  }
+
+  sendOtp(userdId:string) {
+    return this.http
+           .post(`${BaseURL.baseURLAPI}ForgotPasswordApp?Username=${userdId}`,{})
+           .pipe(tap(value => console.log(value)));
+
   }
 
   logout() {
