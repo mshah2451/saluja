@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import { LoadingController, AlertController } from '@ionic/angular';
+import { LoadingController, AlertController, Platform } from '@ionic/angular';
 import { Observable } from 'rxjs';
 
 import { AuthService, AuthResponseData } from './auth.service';
@@ -15,7 +15,7 @@ import { AuthService, AuthResponseData } from './auth.service';
 export class AuthPage implements OnInit {
   isLoading = false;
   isLogin = true;
- 
+  backButtonSubscription;
  type = 'password';
  showPass = false;
 
@@ -23,10 +23,17 @@ export class AuthPage implements OnInit {
     private authService: AuthService,
     private router: Router,
     private loadingCtrl: LoadingController,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private platform: Platform
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+
+    this.backButtonSubscription = this.platform.backButton.subscribeWithPriority(0, () => {
+      navigator['app'].exitApp();
+     });
+     
+  }
 
   showPassword() {
     this.showPass = !this.showPass;
@@ -59,7 +66,7 @@ export class AuthPage implements OnInit {
             this.router.navigateByUrl('/dashboard');
             }
             else{
-              this.showAlert("Password has been Update");
+              this.showAlert("Password has been Update","");
               this.isLogin=true;
             }
           },
@@ -68,6 +75,7 @@ export class AuthPage implements OnInit {
             // const code = errRes.error.error.message;
             const code = errRes;
             let message ="";
+            let  header="Authentication failed";
             if (this.isLogin){
              message = 'Could not Login, please Check Userid or Password.';
             }else{
@@ -80,7 +88,7 @@ export class AuthPage implements OnInit {
             } else if (code === 'INVALID_PASSWORD') {
               message = 'This password is not correct.';
             }
-            this.showAlert(message);
+            this.showAlert(message,header);
           }
         );
       });
@@ -100,10 +108,10 @@ export class AuthPage implements OnInit {
     form.reset();
   }
 
-  private showAlert(message: string) {
+  private showAlert(message: string,header:string ) {
     this.alertCtrl
       .create({
-        header: 'Authentication failed',
+        header: header,
         message: message,
         buttons: ['Okay']
       })
