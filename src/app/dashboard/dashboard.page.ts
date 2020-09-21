@@ -20,11 +20,6 @@ export class DashboardPage implements OnInit,OnDestroy,AfterViewInit  {
         private loaderService:LoaderService,
         private platform: Platform,
         private backButtonService:BackButtonService) { 
-    this.backButtonService.backButtonSubscription = this.platform.backButton.subscribeWithPriority(666666, () => {
-      if(this.constructor.name === 'DashboardPage'){
-      this.LogOutAlert();
-       }
-     });
      this.backButtonService.backNavDetech();
   }
 
