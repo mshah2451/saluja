@@ -3,7 +3,7 @@ import {studentDetails} from '../model/studentDetails'
 import {DashboardService} from './dashboard.service';
 import { LoaderService } from '../services/loader.service';
 import { Platform, AlertController } from '@ionic/angular';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.page.html',
@@ -13,19 +13,24 @@ export class DashboardPage implements OnInit,OnDestroy,AfterViewInit  {
   backButtonSubscription;
   isLoading:boolean=false;
   studentDetail:studentDetails;
-  constructor(private dashboardService:DashboardService,     private router: Router, public alertCtrl: AlertController,private loaderService:LoaderService,private platform: Platform) { 
+  constructor(private dashboardService:DashboardService,  private activatedRoute : ActivatedRoute,   private router: Router, public alertCtrl: AlertController,private loaderService:LoaderService,private platform: Platform) { 
+    if(this.router.url=="/dashboard"){
     this.backButtonSubscription = this.platform.backButton.subscribeWithPriority(666666, () => {
       if(this.constructor.name === 'DashboardPage'){
       this.LogOutAlert();
        }
      });
+    }
+    this.activatedRoute.params.subscribe((path) => {
+      // Do whatever in here
+ });
   }
 
   ngOnInit() {
     this.loaderService.showLoader();
     this.dashboardService.getStudentDetails().subscribe(studentDetail=>{
       this.studentDetail=studentDetail;
-      this.loaderService.hideLoader();
+      this.loaderService.hideLoader();               
     });
    
     
