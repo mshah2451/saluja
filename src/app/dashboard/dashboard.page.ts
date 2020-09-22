@@ -2,16 +2,18 @@ import { Component, OnInit, AfterViewInit, OnDestroy,HostListener  } from '@angu
 import {studentDetails} from '../model/studentDetails'
 import {DashboardService} from './dashboard.service';
 import { LoaderService } from '../services/loader.service';
-import { Platform, AlertController } from '@ionic/angular';
+import { Platform, AlertController, IonRouterOutlet } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { BackButtonService } from '../services/backbutton.service';
+import { Location } from '@angular/common';
+
+// import { BackButtonService } from '../services/backbutton.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.page.html',
   styleUrls: ['./dashboard.page.scss'],
 })
-export class DashboardPage implements OnInit,OnDestroy,AfterViewInit  {
-  
+export class DashboardPage implements OnInit,OnDestroy  {
+  backButtonSubscription;
   isLoading:boolean=false;
   studentDetail:studentDetails;
   constructor(private dashboardService:DashboardService,  
@@ -19,8 +21,11 @@ export class DashboardPage implements OnInit,OnDestroy,AfterViewInit  {
         public alertCtrl: AlertController,
         private loaderService:LoaderService,
         private platform: Platform,
-        private backButtonService:BackButtonService) { 
-     this.backButtonService.backNavDetech();
+        private _location: Location,
+        private routerOutlet: IonRouterOutlet
+
+      ) { 
+  
   }
 
   ngOnInit() {
@@ -32,10 +37,22 @@ export class DashboardPage implements OnInit,OnDestroy,AfterViewInit  {
    
     
   }
-  ngAfterViewInit() {
-  
+  ionViewWillEnter() {
+    // this.backButtonSubscription = this.platform.backButton.subscribeWithPriority(666666, () => {
+    //   if(this.router.url === '/dashboard'){
+    //   this.LogOutAlert();
+    //    }
+    //    else{
+    //     this._location.back();
+    //    }
+    //  });
   }
-  @HostListener('unloaded')
+  ionViewWillLeave(){
+    if(this.router.url === '/dashboard'){
+        this.LogOutAlert();
+         }
+  //  this.backButtonSubscription.unsubscribe(); 
+   }
   ngOnDestroy() {
     //this.backButtonSubscription.unsubscribe();
   }
