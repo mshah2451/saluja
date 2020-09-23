@@ -28,12 +28,19 @@ export class AuthPage implements OnInit {
 
   ngOnInit() {
 
-    this.backButtonSubscription = this.platform.backButton.subscribeWithPriority(0, () => {
-      navigator['app'].exitApp();
-     });
+  
      
   }
-
+  ionViewWillEnter() {
+       this.backButtonSubscription = this.platform.backButton.subscribeWithPriority(0, () => {
+        if(this.router.url === '/auth'){
+        navigator['app'].exitApp();
+        }
+     });
+  }
+  ionViewWillLeave(){
+   this.backButtonSubscription.unsubscribe(); 
+   }
   showPassword() {
     this.showPass = !this.showPass;
     if(this.showPass){

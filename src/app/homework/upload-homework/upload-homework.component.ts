@@ -315,18 +315,30 @@ let extension="";
 GetUploadFileName(){
   const AssId= this.homework.AssId;
   this.fileUploadArray = [];
+  var regex = /(\d+)/g;
+var d = this.homework.LastUploadDate.match(regex);
+var out = d[2] + "-" + d[1] + "-" + d[0];
+let lastdate= new Date(out);
+let currentdate=new Date();
+if(lastdate.getDate()<currentdate.getDate()){
+  this.uploadbuttonDisable=true;
+ }
+ else{
+  this.uploadbuttonDisable=false;
+ }
   this.homeservice.GetUploadFileName(AssId).subscribe(fileName=>
     {
 
       if(fileName != null)
       {
         //fileUploadArray
+        
+       
+      
       const fileArray=  fileName.split(',');
         for (let fileCount = 0; fileCount < fileArray.length; fileCount++) { 
           let fileNameObj = fileArray[fileCount];
-          if(fileCount===2){
-           this.uploadbuttonDisable=true;
-          }
+ 
           const arr=fileNameObj.split('.');
           if(arr.length==2){
             this.fileUploadArray.push(

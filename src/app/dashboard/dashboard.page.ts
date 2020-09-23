@@ -2,7 +2,7 @@ import { Component, OnInit, AfterViewInit, OnDestroy,HostListener  } from '@angu
 import {studentDetails} from '../model/studentDetails'
 import {DashboardService} from './dashboard.service';
 import { LoaderService } from '../services/loader.service';
-import { Platform, AlertController, IonRouterOutlet } from '@ionic/angular';
+import { Platform, AlertController, IonRouterOutlet, ModalController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 
@@ -22,8 +22,8 @@ export class DashboardPage implements OnInit,OnDestroy  {
         private loaderService:LoaderService,
         private platform: Platform,
         private _location: Location,
-        private routerOutlet: IonRouterOutlet
-
+        private routerOutlet: IonRouterOutlet,
+        private modalController: ModalController
       ) { 
   
   }
@@ -38,20 +38,21 @@ export class DashboardPage implements OnInit,OnDestroy  {
     
   }
   ionViewWillEnter() {
-    // this.backButtonSubscription = this.platform.backButton.subscribeWithPriority(666666, () => {
-    //   if(this.router.url === '/dashboard'){
-    //   this.LogOutAlert();
-    //    }
-    //    else{
-    //     this._location.back();
-    //    }
-    //  });
+    this.backButtonSubscription = this.platform.backButton.subscribeWithPriority(666666, () => {
+      if(this.router.url === '/dashboard'){
+      this.LogOutAlert();
+       }
+       else{
+         
+        this._location.back();
+       }
+     });
   }
   ionViewWillLeave(){
-    if(this.router.url === '/dashboard'){
-        this.LogOutAlert();
-         }
-  //  this.backButtonSubscription.unsubscribe(); 
+    // if(this.router.url === '/dashboard'){
+    //     this.LogOutAlert();
+    //      }
+   this.backButtonSubscription.unsubscribe(); 
    }
   ngOnDestroy() {
     //this.backButtonSubscription.unsubscribe();
