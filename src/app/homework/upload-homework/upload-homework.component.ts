@@ -320,7 +320,7 @@ var d = this.homework.LastUploadDate.match(regex);
 var out = d[2] + "-" + d[1] + "-" + d[0];
 let lastdate= new Date(out);
 let currentdate=new Date();
-if(lastdate.getDate()<currentdate.getDate()){
+if(lastdate<currentdate){
   this.uploadbuttonDisable=true;
  }
  else{
@@ -335,18 +335,18 @@ if(lastdate.getDate()<currentdate.getDate()){
         
        
       
-      const fileArray=  fileName.split(',');
+      const fileArray=  fileName;
         for (let fileCount = 0; fileCount < fileArray.length; fileCount++) { 
           let fileNameObj = fileArray[fileCount];
  
-          const arr=fileNameObj.split('.');
+          const arr=fileNameObj.FileName.split('.');
           if(arr.length==2){
             this.fileUploadArray.push(
               {
               Name:arr[0],
               Ext : arr[1],
               ImagePick:this.getExtensionImage(arr[1]),
-              FullName:fileNameObj
+              FullName:fileNameObj.FileName
             }
             );
 
