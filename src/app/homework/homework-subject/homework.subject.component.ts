@@ -26,8 +26,9 @@ homeworkDetails:HomeworkDetails[];
     private router:Router,
     private shareService:SharedServiceService
     ) { }
-
+  
   ngOnInit() { 
+    this.subjects= this.sortByDate(this.subjects)
     this.shareService.onMainEvent.subscribe(
       (id) => {
         this.subjects.filter(x=>x.AssId==id)[0].Status="Complete";
@@ -35,7 +36,13 @@ homeworkDetails:HomeworkDetails[];
       }
    );
   }
+  sortByDate(arr) {
+    arr.sort(function(a,b){
+      return Number(new Date(a.readableDate)) - Number(new Date(b.readableDate));
+    });
 
+    return arr;
+  }
   onBookPlace(id : string) {
     this.subjects.map(x=>{
       if(x.AssId===id)

@@ -260,7 +260,30 @@ onImagePicked(imageData: string | File) {
   }
   
 }
-
+async DeleteFile(AssId:number){
+  const alertTest = await this.alertCtrl.create({  
+    header: 'Do you want to delete File? Click Yes or else Cancel.',  
+    buttons: [ { 
+      text: 'Yes',  
+      handler:async data => {  
+        this.homeservice.DeleteUploadFile(AssId).subscribe(fileName=>
+          {
+           
+            this.toastService.presentToast('file has been deleted successfully',2000); 
+            this.GetUploadFileName();
+          })
+      }   
+    }, {
+      text: 'Cancel',  
+      handler: data => {  
+       // this.onCancel();
+        return;
+      }  
+    } ]  
+  }); 
+  await alertTest.present(); 
+ 
+}
 base64toBlob(base64Data, contentType) {
  
   contentType = contentType || '';
@@ -346,7 +369,8 @@ if(lastdate<currentdate){
               Name:arr[0],
               Ext : arr[1],
               ImagePick:this.getExtensionImage(arr[1]),
-              FullName:fileNameObj.FileName
+              FullName:fileNameObj.FileName,
+              FileId:fileNameObj.FileId
             }
             );
 

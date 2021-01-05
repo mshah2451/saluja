@@ -88,6 +88,18 @@ this.authService.userId.subscribe(x=>userId=x);
      
  
   }
+  DeleteUploadFile(AssId:number): Observable<any> {
+//     let userId = '';
+// this.authService.userId.subscribe(x=>userId=x);
+//     const url = `${BaseURL.baseURLAPI}StudentUploadHW`;
+    // this.http.post<any>(url,JSON.stringify(homeworkUploadDetails));
 
-  
+    
+     return this.http
+     .get<any>(
+       `${BaseURL.baseURLAPI}DeleteStudentHW?FileId=${AssId}`)
+     
+ 
+  }
+   
 }
