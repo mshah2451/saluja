@@ -38,7 +38,14 @@ homeworkDetails:HomeworkDetails[];
   }
   sortByDate(arr) {
     arr.sort(function(a,b){
-      return Number(new Date(a.readableDate)) - Number(new Date(b.readableDate));
+      let datearr1=a.Date.split('/');
+      let datearr2=b.Date.split('/');
+      var date1 = datearr1[2] + "-" +datearr1[1] + "-" + datearr1[0];
+      var date2 = datearr2[2] + "-" +datearr2[1] + "-" + datearr2[0];
+  
+// let lastdate= new Date(out);
+// let currentdate=new Date();
+      return Number(new Date(date1)) - Number(new Date(date2));
     });
 
     return arr;
