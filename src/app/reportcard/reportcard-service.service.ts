@@ -20,7 +20,7 @@ export class ReportcardServiceService {
       studentProfile =x;
     });
     let classId=studentProfile.ClassId;
-    const url = `${BaseURL.baseUrlLocalApi}/ResultTypeMaster?classId=${classId}`;
+    const url = `${BaseURL.baseURLAPI}/ResultTypeMaster?classId=${classId}`;
     return this.http.get<any>(url).pipe(
     
     );
@@ -31,7 +31,7 @@ export class ReportcardServiceService {
       studentProfile =x;
     });
     download.admissionid=studentProfile.AdmissionId;
-    const url = `${BaseURL.baseUrlLocalApi}/DownloadResults?resultype=${download.resultType}&sessionValue=${download.sessionId}&admissionid=${download.admissionid}&levelid=${download.levelid}`;
+    const url = `${BaseURL.baseURLAPI}/DownloadResults?resultype=${download.resultType}&sessionValue=${download.sessionId}&admissionid=${download.admissionid}&levelid=${download.levelid}`;
     return this.http.get<any>(url).pipe(
     
     );
