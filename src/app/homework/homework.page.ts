@@ -8,6 +8,7 @@ import { ToastService } from '../services/toast.service';
 import * as moment from 'moment';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { homeworkSubjectComponent } from './homework-subject/homework.subject.component';
+import { throwError } from 'rxjs';
 
 @Component({
   selector: 'app-homework',
@@ -69,6 +70,7 @@ homeworkDetails:HomeworkDetails[];
         return subject;
       })];
     });
+  
   }
 
   showHomeBySubject(subjectId:number) { 

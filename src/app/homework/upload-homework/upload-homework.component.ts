@@ -266,9 +266,10 @@ async DeleteFile(AssId:number){
     buttons: [ { 
       text: 'Yes',  
       handler:async data => {  
+        this.loaderService.showLoader();
         this.homeservice.DeleteUploadFile(AssId).subscribe(fileName=>
           {
-           
+           this.loaderService.hideLoader();
             this.toastService.presentToast('file has been deleted successfully',2000); 
             this.GetUploadFileName();
           })
@@ -342,8 +343,10 @@ GetUploadFileName(){
 var d = this.homework.LastUploadDate.match(regex);
 var out = d[2] + "-" + d[1] + "-" + d[0];
 let lastdate= new Date(out);
-let currentdate=new Date();
-if(lastdate<currentdate){
+let today=new Date();      
+var todayDateFormatted = new Date(today.getFullYear(),today.getMonth(),today.getDate());
+
+if(lastdate<todayDateFormatted){
   this.uploadbuttonDisable=true;
  }
  else{

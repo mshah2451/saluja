@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Downloader, DownloadRequest, NotificationVisibility } from '@ionic-native/downloader/ngx';
+import { LoaderService } from './loader.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FileDowmloaderService {
 
-  constructor(private downloader: Downloader) { }
+  constructor(private downloader: Downloader,private loaderService:LoaderService,) { }
 
   downloadFile(URL:string,title:string)
   {
@@ -22,11 +23,21 @@ export class FileDowmloaderService {
           subPath: title
       }
   };
+ 
+  try{
     this.downloader.download(request)
-          .then((location: string) => alert(JSON.stringify(location) ))
+          .then((location: string) => {
+            alert(JSON.stringify(location) )
+           this.loaderService.hideLoader();
+          })
           .catch((error: any) =>{
+          this.loaderService.hideLoader();
             console.error(error);
           } );
+  }catch(err){
+    this.loaderService.hideLoader();
+  }
+
   }
 }
 

@@ -1,5 +1,5 @@
 <ion-app>
-  <ion-menu side="start">
+  <ion-menu *ngIf="previousAuthState" side="start">
 
     <ion-content>
       <ion-list>
@@ -22,7 +22,7 @@
           </ion-item>
         </ion-menu-toggle>
         <ion-menu-toggle>
-          <ion-item lines="none" (click)="updateActiveRoute('reportCard')" routerLink="/homework">
+          <ion-item lines="none" (click)="updateActiveRoute('reportCard')" routerLink="/reportcard">
             <ion-icon [style.color]="activatedClass.reportCard ? '#EF3B51' : '' " name="stats-chart-outline" slot="start"></ion-icon>
             <ion-label [style.color]="activatedClass.reportCard ? '#EF3B51' : '' "> Report Card</ion-label>
           </ion-item>

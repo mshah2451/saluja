@@ -1,4 +1,4 @@
-import { NgModule,NO_ERRORS_SCHEMA,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule,NO_ERRORS_SCHEMA,CUSTOM_ELEMENTS_SCHEMA, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { HttpClientModule,HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -19,6 +19,8 @@ import { AuthInterceptor } from './auth-interceptors';
 import { Downloader, DownloadRequest, NotificationVisibility } from '@ionic-native/downloader/ngx';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { NgCalendarModule  } from 'ionic2-calendar';
+import { GlobalErrorHandler } from './errorhandler/global-error-handler.service';
+import { ServerErrorInterceptor } from './errorhandler/server-error.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -36,8 +38,12 @@ import { NgCalendarModule  } from 'ionic2-calendar';
     File,  
     Downloader,
     SplashScreen,
+    { provide: ErrorHandler, useClass: GlobalErrorHandler },
+
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    {provide:HTTP_INTERCEPTORS,useClass:AuthInterceptor,multi:true}
+    {provide:HTTP_INTERCEPTORS,useClass:AuthInterceptor,multi:true},
+    {provide:HTTP_INTERCEPTORS,useClass: ServerErrorInterceptor,multi:true}
+
   ],
  
   bootstrap: [AppComponent]
